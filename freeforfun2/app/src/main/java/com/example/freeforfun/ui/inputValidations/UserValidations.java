@@ -13,10 +13,10 @@ public class UserValidations {
     }
 
     public static boolean hasAtLeast3Charachters(String input){
-        return input.length() >= 3;
+        return input.length() > 3;
     }
 
     public static boolean containsOnlyLettersAndDigits(String input){
-        return input.matches("[a-zA-Z0-9]+");
+        return input.matches("[a-zA-Z0-9-_.]*");
     }
 }

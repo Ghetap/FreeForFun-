@@ -11,5 +11,9 @@
     <style name="AppThemeToolBar" parent="@style/Widget.AppCompat.Toolbar">
         <item name="android:background">@drawable/gradient</item>
     </style>
+    <style name="AppTheme.CustomTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
 
 </resources>

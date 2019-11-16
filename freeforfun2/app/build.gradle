@@ -31,7 +31,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'hu.blackbelt.karaf.features:javax:1.0.2'
     //implementation 'br.com.objectos.db:mysql:0.4.0'
-    implementation group: 'javax.persistence', name: 'persistence-api', version: '1.0'
+    implementation group: 'javax.persistence', name: 'persistence-api', version: '1.0.2'
     implementation group: 'javax.ejb', name: 'ejb-api', version: '3.0'
     implementation 'com.loopj.android:android-async-http:1.4.9'
 

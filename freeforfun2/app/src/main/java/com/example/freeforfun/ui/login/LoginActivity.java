@@ -1,4 +1,5 @@
 package com.example.freeforfun.ui.login;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +16,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.inputValidations.UserValidations;
+import com.example.freeforfun.ui.model.User;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -89,14 +93,17 @@ public class LoginActivity extends AppCompatActivity {
         if(!validateUsername(usernameInput) | !validatePassword(passwordInput)){
             return;
         }
-        String response = UserRestCalls.login(usernameInput, passwordInput);
-        if(response != null && response.equals("Successfully login!")){
-            Intent registerIntent = new Intent(LoginActivity.this, MainMenuActivity.class);
-            startActivity(registerIntent);
+        User loggedUser = UserRestCalls.login(usernameInput, passwordInput);
+        if(loggedUser!=null){
+            Intent mainMenuIntent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(mainMenuIntent);
         }
         else{
-            Intent registerIntent = new Intent(LoginActivity.this, PopUpActivity.class);
-            startActivity(registerIntent);
+            Context context = getApplicationContext();
+            CharSequence text = "Authentication failed!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         }
     }
 

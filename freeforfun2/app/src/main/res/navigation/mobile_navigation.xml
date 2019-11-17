@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_profile">
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.freeforfun.ui.login.ui.profile.UserProfileFragment"
+        android:label="@string/menu_profile_details"
+        tools:layout="@layout/fragment_user_profile" />
+
+    <fragment
+        android:id="@+id/nav_update"
+        android:name="com.example.freeforfun.ui.login.ui.editProfile.EditProfileFragment"
+        android:label="@string/menu_update_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/nav_see_locals"
+        android:name="com.example.freeforfun.ui.login.ui.seeLocals.LocalsFragment"
+        android:label="@string/menu_locals"
+        tools:layout="@layout/fragment_locals" />
+
+    <fragment
+        android:id="@+id/nav_change_language"
+        android:name="com.example.freeforfun.ui.login.ui.changeLanguage.ChangeLanguageFragment"
+        android:label="@string/menu_choose_language"
+        tools:layout="@layout/fragment_change_language" />
+
+    <fragment
+        android:id="@+id/nav_change_password"
+        android:name="com.example.freeforfun.ui.login.ui.changePassword.ChangePasswordFragment"
+        android:label="@string/menu_change_password"
+        tools:layout="@layout/fragment_change_password" />
+</navigation>

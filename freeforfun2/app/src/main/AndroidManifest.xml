@@ -12,7 +12,10 @@
         android:roundIcon="@drawable/applogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.login.PopUpActivity" android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity
+            android:name=".ui.login.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".ui.login.MainMenuActivity" />
         <activity android:name=".ui.login.ForgotPasswordActivity" />
         <activity android:name=".ui.login.RegisterActivity" />

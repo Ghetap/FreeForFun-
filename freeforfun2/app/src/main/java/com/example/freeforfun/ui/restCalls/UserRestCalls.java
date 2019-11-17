@@ -23,7 +23,7 @@ public class UserRestCalls {
     public static User login(String username, String password){
         String url = BASE_URL + Paths.LOGIN + "/" + username + "/" + password;
 
-        if (android.os.Build.VERSION.SDK_INT > 9)
+        if (android.os.Build.VERSION.SDK_INT >= 14)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);

@@ -4,12 +4,7 @@ import android.os.StrictMode;
 
 import com.example.freeforfun.ui.model.User;
 import com.example.freeforfun.ui.utils.Paths;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -100,6 +100,9 @@ public class LoginActivity extends AppCompatActivity {
         User loggedUser = UserRestCalls.login(usernameInput, passwordInput);
         if(loggedUser!=null){
             Intent mainMenuIntent = new Intent(LoginActivity.this, MainActivity.class);
+//            mainMenuIntent.putExtra("username", loggedUser.getUsername());
+//            mainMenuIntent.putExtra("email", loggedUser.getEmail());
+            mainMenuIntent.putExtra("loggedUser", loggedUser);
             startActivity(mainMenuIntent);
         }
         else{

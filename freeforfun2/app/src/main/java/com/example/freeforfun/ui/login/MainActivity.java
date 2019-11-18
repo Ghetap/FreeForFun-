@@ -3,6 +3,7 @@ package com.example.freeforfun.ui.login;
 import android.os.Bundle;
 
 import com.example.freeforfun.R;
+import com.example.freeforfun.ui.model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -21,13 +22,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
+    private TextView loggedEmail;
+    private TextView loggedUsername;
     private AppBarConfiguration mAppBarConfiguration;
+    private User loggedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        loggedUser = (User)getIntent().getSerializableExtra("loggedUser");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -58,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+//        String userName = getIntent().getStringExtra("username");
+//        String email = getIntent().getStringExtra("email");
+        loggedEmail = findViewById(R.id.loggedEmail);
+        loggedUsername = findViewById(R.id.loggedUsername);
+        loggedEmail.setText(loggedUser.getEmail());
+        loggedUsername.setText(loggedUser.getUsername());
         return true;
     }
 

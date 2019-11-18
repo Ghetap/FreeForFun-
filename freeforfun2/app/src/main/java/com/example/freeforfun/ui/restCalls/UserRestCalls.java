@@ -1,20 +1,14 @@
 package com.example.freeforfun.ui.restCalls;
-
 import android.os.StrictMode;
-
 import com.example.freeforfun.ui.model.User;
 import com.example.freeforfun.ui.utils.Paths;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -59,17 +53,8 @@ public class UserRestCalls {
         }
         return null;
     }
-    public static String register (String username,String password, String firstname,String lastname,String email,
-                                   String phoneNumber,String role) throws JSONException {
+    public static String register (JSONObject user) throws JSONException {
         String url =BASE_URL + Paths.REGISTER;
-        JSONObject user = new JSONObject();
-        user.put("firstName",firstname);
-        user.put("lastName",lastname);
-        user.put("password",password);
-        user.put("email",email);
-        user.put("mobileNumber",phoneNumber);
-        user.put("username",username);
-        user.put("role",0);
 
         if (android.os.Build.VERSION.SDK_INT > 9)
         {

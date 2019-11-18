@@ -3,27 +3,30 @@ package com.example.freeforfun.ui.login;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.freeforfun.R;
-import com.example.freeforfun.ui.utils.Paths;
+import com.example.freeforfun.ui.inputValidations.UserValidations;
+import com.example.freeforfun.ui.model.User;
+import com.example.freeforfun.ui.restCalls.UserRestCalls;
 import com.google.android.material.snackbar.Snackbar;
-
-import org.json.JSONException;
+import com.google.gson.Gson;
 import org.json.JSONObject;
 
-import static com.example.freeforfun.ui.utils.Paths.BASE_URL;
+import org.json.JSONException;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -53,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 JSONObject jsonUser = new JSONObject();
                 try {
@@ -91,36 +95,71 @@ public class RegisterActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                String URL = BASE_URL + Paths.REGISTER;
-                JsonObjectRequest requestObject = new JsonObjectRequest(
-                        Request.Method.POST, URL, jsonUser, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        showSnackbar(response.toString());
-                    }
-                },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                showSnackbar(error.toString());
-                            }
-                        }
-                );
-                requestQueue.add(requestObject);
+                try {
+                    if( validatePassword(jsonUser.getString("password")) && validateUsername(jsonUser.getString("username"))
+                    && UserValidations.validateEmail(jsonUser.getString("email")) &&
+                    UserValidations.validateName(jsonUser.getString("firstName")) &&
+                    UserValidations.validateName(jsonUser.getString("lastName")) &&
+                    UserValidations.validateROPhoneNumber(jsonUser.getString("mobileNumber")) &&
+                    UserValidations.validateRole(jsonUser.getString("role"))){
+
+                        String message = UserRestCalls.register(jsonUser);
+                        if(message != null)
+                            showSnackbar(message);
+                    }else
+                        showSnackbar("Registration didn't go well. Try again !");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
     public void showSnackbar(String messageFromServer){
         Snackbar snackbar = Snackbar
                 .make(coordinatorLayout, messageFromServer, Snackbar.LENGTH_LONG)
-                .setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Snackbar snackbar1 = Snackbar.make(coordinatorLayout,"Undo registration",Snackbar.LENGTH_SHORT);
-                        snackbar1.show();
-                    }
-                })
                 .setActionTextColor(Color.MAGENTA);
         snackbar.show();
+    }
+    public boolean validateUsername(String usernameInput){
+        if(!UserValidations.isNotEmpty(usernameInput)) {
+            username.setError("Username is required!");
+        }
+        else {
+            username.setError(null);
+        }
+        if(!UserValidations.containsOnlyLettersAndDigits(usernameInput)){
+            username.setError("Username can contain only letters,digits, '_' and '.'!");
+            return false;
+        }
+        else {
+            username.setError(null);
+        }
+        if(!UserValidations.doesNotContainSpace(usernameInput)){
+            username.setError("Username cannot contain space!");
+            return false;
+        }
+        else {
+            username.setError(null);
+        }
+        return true;
+    }
+
+    public boolean validatePassword(String passwordInput){
+        if(!UserValidations.isNotEmpty(passwordInput)) {
+            password.setError("Password is required!");
+            return false;
+        }
+        else {
+            password.setError(null);
+        }
+        if(!UserValidations.hasAtLeast3Charachters(passwordInput)){
+            password.setError("Password must have at least 4 characters!");
+            return false;
+        }
+        else {
+            password.setError(null);
+        }
+        return true;
     }
 }

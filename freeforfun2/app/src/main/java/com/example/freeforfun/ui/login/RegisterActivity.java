@@ -36,7 +36,6 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        final RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         username = findViewById(R.id.editText_username);
         password = findViewById(R.id.editText_password);
@@ -113,8 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void showSnackbar(String messageFromServer){
         Snackbar snackbar = Snackbar
-                .make(coordinatorLayout, messageFromServer, Snackbar.LENGTH_LONG)
-                .setActionTextColor(Color.MAGENTA);
+                .make(coordinatorLayout, messageFromServer, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 

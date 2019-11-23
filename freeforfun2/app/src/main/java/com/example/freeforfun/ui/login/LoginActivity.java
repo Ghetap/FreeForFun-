@@ -3,6 +3,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,6 +23,7 @@ import com.example.freeforfun.R;
 import com.example.freeforfun.ui.inputValidations.UserValidations;
 import com.example.freeforfun.ui.model.User;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -30,6 +32,7 @@ import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
 
+    CoordinatorLayout coordinatorLayout;
     private EditText username;
     private EditText password;
     private TextView logResponse;
@@ -47,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         register = findViewById(R.id.textView_register);
         forgotPassword = findViewById(R.id.textView_forgotPassword);
         logResponse = findViewById(R.id.textView_log);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,11 +104,13 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(mainMenuIntent);
         }
         else{
-            Context context = getApplicationContext();
-            CharSequence text = "Authentication failed!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+//            Context context = getApplicationContext();
+//            CharSequence text = "Authentication failed!";
+//            int duration = Toast.LENGTH_SHORT;
+//            Toast toast = Toast.makeText(context, text, duration);
+//            toast.show();
+            showSnackbar("Something went wrong. Please try again!");
+
         }
     }
 
@@ -161,5 +167,10 @@ public class LoginActivity extends AppCompatActivity {
             password.setError(null);
         }
         return true;
+    }
+    public void showSnackbar(String messageFromServer){
+        Snackbar snackbar = Snackbar
+                .make(coordinatorLayout, messageFromServer, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 }

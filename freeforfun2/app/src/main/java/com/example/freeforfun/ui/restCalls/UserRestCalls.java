@@ -164,4 +164,27 @@ public class UserRestCalls {
         }
         return null;
     }
+
+    public static Integer deleteAccount(String username){
+        String url = BASE_URL + Paths.DELETE_ACCOUNT + "/" + username;
+        if (android.os.Build.VERSION.SDK_INT >= 14)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        try {
+            URL urlForGetRequest = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
+            connection.setReadTimeout(15000);
+            connection.setConnectTimeout(15000);
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.connect();
+            return connection.getResponseCode();
+        } catch(IOException ex ){
+            ex.printStackTrace();
+        }
+        return -1;
+    }
 }

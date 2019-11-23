@@ -50,5 +50,14 @@
     <string name="new_password">New password</string>
     <string name="confirm_new_password">Confirm new password</string>
     <string name="change_password">Change password</string>
+    <string name="cancel">Cancel</string>
+    <string name="exit">Exit</string>
+    <string name="are_you_sure_you_want_to_log_out_from_the_application">Are you sure you want to log out from the application?</string>
+    <string name="forgot_password_type_in_your_email_to_get_your_password_back">Forgot password? Type in your email to get your password back!</string>
+    <string name="log_out">Log out</string>
+    <string name="delete_account">Delete account</string>
+    <string name="your_account_will_e_deleted_permanently_are_you_sure_you_want_to_continue">Your account will be deleted permanently. Are you sure you want to continue?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

@@ -29,6 +29,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.IOException;
 
+import static com.example.freeforfun.ui.login.MainActivity.loggedUser;
+
 
 public class LoginActivity extends AppCompatActivity {
 

@@ -1,7 +1,5 @@
 package com.example.freeforfun.ui.inputValidations;
 
-import com.google.android.material.textfield.TextInputLayout;
-
 public class UserValidations {
 
     public static boolean isNotEmpty(String input){

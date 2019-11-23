@@ -53,6 +53,75 @@ public class UserRestCalls {
         }
         return null;
     }
+
+    public static String forgotPassword(String email){
+        String url = BASE_URL + Paths.FORGOT_PASSWORD + "/" + email;
+        if (android.os.Build.VERSION.SDK_INT >= 14)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        try {
+            URL urlForGetRequest = new URL(url);
+            String readLine;
+            HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
+            connection.setReadTimeout(15000);
+            connection.setConnectTimeout(15000);
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.connect();
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED){
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                while ((readLine = in .readLine()) != null) {
+                    response.append(readLine);
+                } in .close();
+                return response.toString();
+            }
+        } catch(IOException ex ){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String changePassword(String username, String oldPassword, String newPassword){
+        String url = BASE_URL + Paths.CHANGE_PASSWORD+ "/" + username + "/" + oldPassword
+                + "/" + newPassword;
+        if (android.os.Build.VERSION.SDK_INT >= 14)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        try {
+            URL urlForGetRequest = new URL(url);
+            String readLine;
+            HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
+            connection.setReadTimeout(15000);
+            connection.setConnectTimeout(15000);
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.connect();
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED){
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                while ((readLine = in .readLine()) != null) {
+                    response.append(readLine);
+                } in .close();
+                return response.toString();
+            }
+        } catch(IOException ex ){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+
     public static String register (JSONObject user) throws JSONException {
         String url =BASE_URL + Paths.REGISTER;
 

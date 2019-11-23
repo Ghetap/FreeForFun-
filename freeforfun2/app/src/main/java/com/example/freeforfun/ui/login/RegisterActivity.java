@@ -2,9 +2,6 @@ package com.example.freeforfun.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -13,19 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.inputValidations.UserValidations;
-import com.example.freeforfun.ui.model.User;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import org.json.JSONException;
@@ -110,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if(message != null)
                             showSnackbar(message);
                     }else
-                        showSnackbar("Registration didn't go well. Try again !");
+                        showSnackbar("Registration didn't go well. Try again!");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -118,6 +109,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+
     public void showSnackbar(String messageFromServer){
         Snackbar snackbar = Snackbar
                 .make(coordinatorLayout, messageFromServer, Snackbar.LENGTH_LONG)

@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModel;
 
 public class ChangePasswordViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+//    private MutableLiveData<String> mText;
 
     public ChangePasswordViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("Change Password fragment");
+//        mText = new MutableLiveData<>();
+//        mText.setValue("Change Password fragment");
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
+//    public LiveData<String> getText() {
+//        return mText;
+//    }
 }

@@ -104,12 +104,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(mainMenuIntent);
         }
         else{
-//            Context context = getApplicationContext();
-//            CharSequence text = "Authentication failed!";
-//            int duration = Toast.LENGTH_SHORT;
-//            Toast toast = Toast.makeText(context, text, duration);
-//            toast.show();
-            showSnackbar("Something went wrong. Please try again!");
+            showSnackbar("Authentication failed! Incorrect username or password.");
 
         }
     }

@@ -35,8 +35,8 @@
                 android:title="@string/menu_choose_language" />
             <item
                 android:id="@+id/logout"
-                android:icon="@drawable/logout_profile"
-                android:title="@string/menu_logout" />
+                android:icon="@drawable/delete_account"
+                android:title="@string/delete_account" />
 
         </menu>
     </item>

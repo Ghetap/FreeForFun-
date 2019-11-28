@@ -29,6 +29,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.IOException;
 
+import static com.example.freeforfun.ui.login.MainActivity.loggedUser;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -100,18 +102,11 @@ public class LoginActivity extends AppCompatActivity {
         User loggedUser = UserRestCalls.login(usernameInput, passwordInput);
         if(loggedUser!=null){
             Intent mainMenuIntent = new Intent(LoginActivity.this, MainActivity.class);
-//            mainMenuIntent.putExtra("username", loggedUser.getUsername());
-//            mainMenuIntent.putExtra("email", loggedUser.getEmail());
             mainMenuIntent.putExtra("loggedUser", loggedUser);
             startActivity(mainMenuIntent);
         }
         else{
-//            Context context = getApplicationContext();
-//            CharSequence text = "Authentication failed!";
-//            int duration = Toast.LENGTH_SHORT;
-//            Toast toast = Toast.makeText(context, text, duration);
-//            toast.show();
-            showSnackbar("Something went wrong. Please try again!");
+            showSnackbar("Authentication failed! Incorrect username or password.");
 
         }
     }

@@ -3,4 +3,13 @@
     <color name="colorPrimary">#522DA5</color>
     <color name="colorPrimaryDark">#4a00e0</color>
     <color name="colorAccent">#571794</color>
+    <color name="firstName">#C71585</color>
+    <color name="lastName">#DDA0DD</color>
+    <color name="phone">#FFC0CB</color>
+    <color name="solidCircle">#B0E0E6</color>
+    <color name="circleBorder">#6A5ACD</color>
+    <color name="gradEnd">#B0E0E6</color>
+    <color name="gradStart">#6A5ACD</color>
+    <color name="grey">#808080</color>
+
 </resources>

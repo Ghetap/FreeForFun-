@@ -9,17 +9,30 @@
     android:background="@drawable/gradient"
     android:id="@+id/coordinatorLayout"
     >
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_marginTop="5dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:civ_border_color="#FFFFF0"
+            app:civ_border_width="5dp"
+            android:src="@drawable/username"
+            />
+
         <EditText
             android:id="@+id/editText_firstName"
             android:layout_width="270dp"
             android:layout_height="65dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="15dp"
             android:backgroundTint="#ffffff"
             android:clickable="true"
             android:drawableStart="@drawable/name"
@@ -36,7 +49,7 @@
             android:id="@+id/editText_lastName"
             android:layout_width="270dp"
             android:layout_height="65dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:backgroundTint="#ffffff"
             android:clickable="true"
             android:drawableStart="@drawable/name"
@@ -53,7 +66,7 @@
             android:id="@+id/editText_email"
             android:layout_width="270dp"
             android:layout_height="65dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:backgroundTint="#ffffff"
             android:clickable="true"
             android:drawableStart="@drawable/email1"
@@ -68,7 +81,7 @@
         <EditText
             android:id="@+id/editText_mobileNumber"
             android:layout_width="270dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_height="65dp"
             android:paddingBottom="10dp"
             android:textColorHint="#ffffff"
@@ -86,7 +99,7 @@
         <EditText
             android:id="@+id/editText_username"
             android:layout_width="270dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_height="65dp"
             android:paddingBottom="10dp"
             android:textColorHint="#ffffff"
@@ -142,7 +155,7 @@
             android:id="@+id/button_register"
             android:layout_width="270dp"
             android:layout_height="40dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/button"
             android:text="@string/register"
             android:textColor="#ffffff" />

@@ -1,39 +1,51 @@
 package com.example.freeforfun.ui.login;
-
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.inputValidations.UserValidations;
-import com.example.freeforfun.ui.model.User;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
+import com.example.freeforfun.ui.utils.Paths;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import org.json.JSONException;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.example.freeforfun.ui.utils.Paths.BASE_URL;
 
 
 public class RegisterActivity extends AppCompatActivity {
 
     CoordinatorLayout coordinatorLayout;
+    private CircleImageView profileImage;
+    Uri imageUri;
+    Bitmap bitmap;
+    private static final int PICK_IMAGE = 1;
     private Button registerButton;
     private EditText username;
     private EditText password;
@@ -41,11 +53,13 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText lastName;
     private EditText mobilePhone;
     private EditText email;
+    private String imageName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        profileImage = findViewById(R.id.profile_image);
         username = findViewById(R.id.editText_username);
         password = findViewById(R.id.editText_password);
         firstName = findViewById(R.id.editText_firstName);
@@ -58,8 +72,6 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 JSONObject jsonUser = new JSONObject();
                 try {
                     jsonUser.put("firstName",firstName.getText());
@@ -108,6 +120,15 @@ public class RegisterActivity extends AppCompatActivity {
                         String message = UserRestCalls.register(jsonUser);
                         if(message != null)
                             showSnackbar(message);
+                        if(bitmap != null) {
+                            try {
+                                UserRestCalls.upload(username.getText().toString(),bitmap);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
                     }else
                         showSnackbar("Registration didn't go well. Try again !");
 
@@ -116,7 +137,34 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+      profileImage.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent gallery = new Intent();
+              gallery.setType("image/*");
+              gallery.setAction(Intent.ACTION_GET_CONTENT);
+              startActivityForResult(Intent.createChooser(gallery,"select Picture"),PICK_IMAGE);
+
+          }
+      });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK){
+            imageUri = data.getData();
+            try{
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
+                profileImage.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void showSnackbar(String messageFromServer){
         Snackbar snackbar = Snackbar
                 .make(coordinatorLayout, messageFromServer, Snackbar.LENGTH_LONG);
@@ -176,4 +224,28 @@ public class RegisterActivity extends AppCompatActivity {
         }
         return true;
     }
+    public String getPath(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = getContentResolver().query(
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        cursor.close();
+
+        return path;
+    }
+
+    private String imageToString(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        byte[] imgBytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(imgBytes,Base64.DEFAULT);
+    }
+
 }

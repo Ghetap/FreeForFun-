@@ -2,7 +2,6 @@ package com.example.freeforfun.ui.login;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import android.graphics.Color;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,30 +16,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.inputValidations.UserValidations;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
-import com.example.freeforfun.ui.utils.Paths;
 import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONObject;
 
 import org.json.JSONException;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.example.freeforfun.ui.utils.Paths.BASE_URL;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -156,6 +142,21 @@ public class RegisterActivity extends AppCompatActivity {
         Snackbar snackbar = Snackbar
                 .make(coordinatorLayout, messageFromServer, Snackbar.LENGTH_LONG);
         snackbar.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK){
+            imageUri = data.getData();
+//            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
+                profileImage.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void showHidePassword(View view){

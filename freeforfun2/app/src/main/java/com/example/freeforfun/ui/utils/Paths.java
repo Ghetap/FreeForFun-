@@ -11,5 +11,7 @@ public class Paths {
     public static final String CHANGE_PASSWORD = "/changePassword";
     public static final String DELETE_ACCOUNT = "/deleteAccount";
     public static final String UPLOAD = "/upload";
+    public static final String UPDATE_PROFILE = "/update";
+
 
 }

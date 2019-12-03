@@ -39,9 +39,8 @@
             android:layout_below="@id/imageUser"
             android:layout_centerHorizontal="true"
             android:textSize="30dp"
-            android:fontFamily="sans-serif-black"
             android:layout_marginTop="20dp"
-            android:textColor="@color/gradEnd"/>
+            android:textColor="@color/whiteStart"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -71,10 +70,8 @@
                     android:layout_marginTop="20dp"
                     android:paddingLeft="20dp"
                     android:text="Phone Number  "
-                    android:textAllCaps="true"
                     android:textSize="20dp"
-                    android:fontFamily="sans-serif-black"
-                    android:textColor="@color/gradEnd"
+                    android:textColor="@color/whiteStart"
                     />
                 <TextView
                     android:id="@+id/phoneNumber"
@@ -83,8 +80,7 @@
                     android:paddingLeft="20dp"
                     android:layout_marginTop="20dp"
                     android:textSize="20dp"
-                    android:fontFamily="sans-serif-black"
-                    android:textColor="@color/gradEnd"
+                    android:textColor="@color/whiteStart"
                     >
 
                 </TextView>
@@ -121,9 +117,7 @@
                     android:paddingLeft="20dp"
                     android:text="Role "
                     android:textSize="20dp"
-                    android:textAllCaps="true"
-                    android:fontFamily="sans-serif-black"
-                    android:textColor="@color/gradEnd"
+                    android:textColor="@color/whiteStart"
                     />
                 <TextView
                     android:id="@+id/roleUser"
@@ -132,8 +126,7 @@
                     android:paddingLeft="50dp"
                     android:layout_marginTop="20dp"
                     android:textSize="20dp"
-                    android:fontFamily="sans-serif-black"
-                    android:textColor="@color/gradEnd"
+                    android:textColor="@color/whiteStart"
                     >
 
                 </TextView>
@@ -166,14 +159,13 @@
                     android:id="@+id/button_changePass"
                     android:layout_width="245dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/button"
                     android:backgroundTint="@color/gradStart"
                     android:onClick="openDeleteActivity"
                     android:paddingLeft="60dp"
                     android:textSize="20dp"
-                    android:fontFamily="sans-serif-black"
-                    android:textColor="@color/gradEnd"
+                    android:textColor="@color/whiteStart"
                     android:text="@string/delete_account" />
 
             </LinearLayout>

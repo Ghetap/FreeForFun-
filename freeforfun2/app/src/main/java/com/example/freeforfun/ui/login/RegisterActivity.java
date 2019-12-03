@@ -114,16 +114,46 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 try {
-                    if( validatePassword(jsonUser.getString("password")) && validateUsername(jsonUser.getString("username"))
-                    && UserValidations.validateEmail(jsonUser.getString("email")) &&
-                    UserValidations.validateName(jsonUser.getString("firstName")) &&
-                    UserValidations.validateName(jsonUser.getString("lastName")) &&
-                    UserValidations.validateROPhoneNumber(jsonUser.getString("mobileNumber")) &&
-                    UserValidations.validateRole(jsonUser.getString("role"))){
+                    if(!UserValidations.validateName(jsonUser.getString("firstName")))
+                    {
+                        showSnackbar("First name must begin with capital letter and contain max 30 chracters" +
+                                "!");
+                    }
+                    else if(!UserValidations.validateROPhoneNumber(jsonUser.getString("mobileNumber")))
+                    {
+                        showSnackbar("Invalid RO- mobile phone ");
+                    }
+                    else if(!UserValidations.validateName(jsonUser.getString("lastName")))
+                    {
+                        showSnackbar("Last name must begin with capital letter and contain max 30 chracters" +
+                                "!");
 
+                    } else if(!UserValidations.validateEmail(jsonUser.getString("email")))
+                    {
+                        showSnackbar("Email is not valid !");
+
+                    } else if(!validatePassword(jsonUser.getString("password")))
+                    {
+                        showSnackbar("Password must contain at least 4 characters!");
+
+                    }else if(!validateUsername(jsonUser.getString("username")))
+                    {
+                        showSnackbar("Username can contain only letters,digits, '_' and '.'!." +
+                                "Username cannot contain space!");
+
+                    }
+                    else if(!UserValidations.validateRole(jsonUser.getString("role")))
+                    {
+                        showSnackbar("Role for users must be 0!");
+
+                    }
+                    else
+                    {
                         String message = UserRestCalls.register(jsonUser);
                         if(message != null)
                             showSnackbar(message);
+                        else
+                            showSnackbar("Registration didn't go well. Try again!");
                         if(bitmap != null) {
                             try {
                                 UserRestCalls.upload(username.getText().toString(),bitmap);
@@ -131,11 +161,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-
-
-                    }else
-                        showSnackbar("Registration didn't go well. Try again!");
-
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

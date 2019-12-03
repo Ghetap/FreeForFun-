@@ -17,6 +17,8 @@
     <string name="mobileNumber">Phone Number</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="editProfile">Edit My Profile</string>
+
     <string name="register_now">Register now?</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="ok">Ok</string>

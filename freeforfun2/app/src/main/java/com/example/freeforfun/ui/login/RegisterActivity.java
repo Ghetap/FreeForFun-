@@ -138,18 +138,13 @@ public class RegisterActivity extends AppCompatActivity {
           }
       });
     }
-    public void showSnackbar(String messageFromServer){
-        Snackbar snackbar = Snackbar
-                .make(coordinatorLayout, messageFromServer, Snackbar.LENGTH_LONG);
-        snackbar.show();
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE && resultCode == RESULT_OK){
             imageUri = data.getData();
-//            Bitmap bitmap = null;
+            Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
                 profileImage.setImageBitmap(bitmap);
@@ -158,6 +153,27 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void showSnackbar(String messageFromServer){
+        Snackbar snackbar = Snackbar
+                .make(coordinatorLayout, messageFromServer, Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK){
+//            imageUri = data.getData();
+////            Bitmap bitmap = null;
+//            try {
+//                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
+//                profileImage.setImageBitmap(bitmap);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     public void showHidePassword(View view){
         if(view.getId()==R.id.show_password_btn){

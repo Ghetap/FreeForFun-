@@ -1,55 +1,19 @@
 package com.example.freeforfun.ui.restCalls;
-import android.app.DownloadManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.StrictMode;
-import android.util.Log;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.example.freeforfun.ui.model.User;
 import com.example.freeforfun.ui.utils.Paths;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
-import javax.ejb.Local;
-
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.NameValuePair;
-import cz.msebera.android.httpclient.entity.mime.MultipartEntityBuilder;
-import cz.msebera.android.httpclient.entity.mime.content.ByteArrayBody;
-import cz.msebera.android.httpclient.entity.mime.content.ContentBody;
-import cz.msebera.android.httpclient.message.BasicNameValuePair;
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.android.volley.VolleyLog.TAG;
-import static com.example.freeforfun.ui.utils.Paths.BASE_URL;
 
 public class UserRestCalls {
 
@@ -81,8 +45,7 @@ public class UserRestCalls {
                 while ((readLine = in .readLine()) != null) {
                     response.append(readLine);
                 } in .close();
-                User user = new Gson().fromJson(response.toString(), User.class);
-                return user;
+                return new Gson().fromJson(response.toString(), User.class);
             }
             if (responseCode == HttpURLConnection.HTTP_CREATED){
                 return null;
@@ -95,11 +58,8 @@ public class UserRestCalls {
 
     public static String forgotPassword(String email){
         String url = BASE_URL + Paths.FORGOT_PASSWORD + "/" + email;
-        if (android.os.Build.VERSION.SDK_INT >= 14)
-        {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         try {
             URL urlForGetRequest = new URL(url);
             String readLine;
@@ -161,14 +121,11 @@ public class UserRestCalls {
     }
 
 
-    public static String register (JSONObject user) throws JSONException {
+    public static String register (JSONObject user){
         String url =BASE_URL + Paths.REGISTER;
 
-        if (android.os.Build.VERSION.SDK_INT > 9)
-        {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         try {
             URL urlForGetRequest = new URL(url);
             String readLine;
@@ -268,7 +225,7 @@ public class UserRestCalls {
         }
         return null;
     }
-    public static String  upload(String username,Bitmap bitmap) throws IOException {
+    public static String upload(String username,Bitmap bitmap) throws IOException {
         String urlString = BASE_URL + Paths.UPLOAD + "/" + username;
         String attachmentName = "bitmap";
         String attachmentFileName = "bitmap.bmp";

@@ -10,7 +10,6 @@
     android:id="@+id/coordinatorLayout"
     >
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +24,7 @@
             android:layout_height="100dp"
             app:civ_border_color="#FFFFF0"
             app:civ_border_width="5dp"
-            android:src="@drawable/username"
+            android:src="@drawable/user_big"
             />
 
         <EditText

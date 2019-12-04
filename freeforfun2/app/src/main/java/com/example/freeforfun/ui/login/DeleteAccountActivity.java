@@ -39,12 +39,14 @@ public class DeleteAccountActivity extends AppCompatActivity {
         if(serverResponseCode == HttpURLConnection.HTTP_OK) {
             loggedUser = null;
             Intent loginIntent = new Intent(DeleteAccountActivity.this, LoginActivity.class);
+            loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                    Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(loginIntent);
             finish();
         }
         else{
             //todo show snackbar -> problem occurred -> daca are enentual ceva programari la localuri
         }
-
     }
 }

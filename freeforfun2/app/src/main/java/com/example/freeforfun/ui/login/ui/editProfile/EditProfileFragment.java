@@ -124,6 +124,9 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
                 String message = UserRestCalls.update(jsonUser);
                 if(message != null){
                     showSnackbar(message);
+                    loggedUser.setFirstName(jsonUser.getString("firstName"));
+                    loggedUser.setLastName(jsonUser.getString("lastName"));
+                    loggedUser.setMobileNumber(jsonUser.getString("mobileNumber"));
                 }else
                     showSnackbar("Edit didn't go well. Try again!");
             }

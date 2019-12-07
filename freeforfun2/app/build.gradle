@@ -47,4 +47,5 @@ dependencies {
     implementation 'androidx.navigation:navigation-runtime:2.1.0'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
     implementation group: 'org.apache.httpcomponents', name: 'httpclient-android', version: '4.3.5.1'
+    implementation "androidx.cardview:cardview:1.0.0"
 }

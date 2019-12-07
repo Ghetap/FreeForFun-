@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class UserRestCalls {
 
@@ -58,8 +59,13 @@ public class UserRestCalls {
 
     public static String forgotPassword(String email){
         String url = BASE_URL + Paths.FORGOT_PASSWORD + "/" + email;
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
+        if (android.os.Build.VERSION.SDK_INT >= 14)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         try {
             URL urlForGetRequest = new URL(url);
             String readLine;
@@ -286,4 +292,76 @@ public class UserRestCalls {
         httpUrlConnection.disconnect();
         return response;
     }
+
+    public static StringBuilder getAllLocals(){
+        String url =BASE_URL + Paths.GET_ALL_LOCALS;
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        try {
+            URL urlForGetRequest = new URL(url);
+            String readLine;
+            HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
+            connection.setReadTimeout(15000);
+            connection.setConnectTimeout(15000);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setUseCaches(false);
+            connection.setRequestProperty("Content-length", "0");
+            connection.setRequestMethod("GET");
+            connection.connect();
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK){
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                while ((readLine = in .readLine()) != null) {
+                    response.append(readLine);
+                } in .close();
+                return response;
+            }
+        } catch(IOException ex ){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    public static StringBuilder filterLocals(String text){
+        String url =BASE_URL + Paths.GET_ALL_LOCALS + "/" + text;
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        try {
+            URL urlForGetRequest = new URL(url);
+            String readLine;
+            HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
+            connection.setReadTimeout(15000);
+            connection.setConnectTimeout(15000);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setUseCaches(false);
+            connection.setRequestProperty("Content-length", "0");
+            connection.setRequestMethod("GET");
+            connection.connect();
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK){
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                while ((readLine = in .readLine()) != null) {
+                    response.append(readLine);
+                } in .close();
+                return response;
+            }
+        } catch(IOException ex ){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
 }

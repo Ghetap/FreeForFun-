@@ -12,6 +12,6 @@ public class Paths {
     public static final String DELETE_ACCOUNT = "/deleteAccount";
     public static final String UPLOAD = "/upload";
     public static final String UPDATE_PROFILE = "/update";
-
-
+    public static final String GET_ALL_LOCALS = "/locals";
+    public static final String FILTER_LOCALS = "/filter";
 }

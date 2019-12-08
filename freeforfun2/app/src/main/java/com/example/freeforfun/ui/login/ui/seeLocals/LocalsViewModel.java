@@ -9,11 +9,6 @@ public class LocalsViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
     public LocalsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("Locals fragment");
-    }
 
-    public LiveData<String> getText() {
-        return mText;
     }
 }

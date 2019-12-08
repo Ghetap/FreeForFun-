@@ -1,10 +1,17 @@
 package com.example.freeforfun.ui.restCalls;
 import android.graphics.Bitmap;
 import android.os.StrictMode;
+import android.util.Log;
+
+import com.example.freeforfun.ui.model.Local;
 import com.example.freeforfun.ui.model.User;
 import com.example.freeforfun.ui.utils.Paths;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONObject;
+import org.w3c.dom.NameList;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -12,8 +19,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserRestCalls {
@@ -293,7 +303,7 @@ public class UserRestCalls {
         return response;
     }
 
-    public static StringBuilder getAllLocals(){
+    public static List<Local> getAllLocals(){
         String url =BASE_URL + Paths.GET_ALL_LOCALS;
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
@@ -309,8 +319,9 @@ public class UserRestCalls {
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setUseCaches(false);
-            connection.setRequestProperty("Content-length", "0");
-            connection.setRequestMethod("GET");
+            connection.setRequestProperty( "Content-Type", "application/json" );
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestMethod("POST");
             connection.connect();
 
             int responseCode = connection.getResponseCode();
@@ -321,7 +332,9 @@ public class UserRestCalls {
                 while ((readLine = in .readLine()) != null) {
                     response.append(readLine);
                 } in .close();
-                return response;
+                Type listType = new TypeToken<List<Local>>(){}.getType();
+                List<Local> locals = new Gson().fromJson(response.toString(), listType);
+                return locals;
             }
         } catch(IOException ex ){
             ex.printStackTrace();

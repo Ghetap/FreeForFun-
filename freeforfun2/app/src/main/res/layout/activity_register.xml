@@ -1,10 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".ui.login.RegisterActivity"
-    android:background="@drawable/gradient">
+    android:background="@drawable/gradient"
+    android:id="@+id/coordinatorLayout"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_marginTop="5dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:civ_border_color="#FFFFF0"
+            app:civ_border_width="5dp"
+            android:src="@drawable/user_big"
+            />
+
+        <EditText
+            android:id="@+id/editText_firstName"
+            android:layout_width="270dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#ffffff"
+            android:clickable="true"
+            android:drawableStart="@drawable/name"
+            android:drawableLeft="@drawable/name"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/firstName"
+            android:paddingBottom="10dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            app:errorEnabled="true" />
+
+        <EditText
+            android:id="@+id/editText_lastName"
+            android:layout_width="270dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#ffffff"
+            android:clickable="true"
+            android:drawableStart="@drawable/name"
+            android:drawableLeft="@drawable/name"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/lastName"
+            android:paddingBottom="10dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            app:errorEnabled="true" />
+
+        <EditText
+            android:id="@+id/editText_email"
+            android:layout_width="270dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#ffffff"
+            android:clickable="true"
+            android:drawableStart="@drawable/email1"
+            android:drawableLeft="@drawable/email1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/email"
+            android:paddingBottom="10dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            app:errorEnabled="true" />
+        <EditText
+            android:id="@+id/editText_mobileNumber"
+            android:layout_width="270dp"
+            android:layout_marginTop="15dp"
+            android:layout_height="65dp"
+            android:paddingBottom="10dp"
+            android:textColorHint="#ffffff"
+            android:textColor="#ffffff"
+            android:drawableLeft="@drawable/phone"
+            android:backgroundTint="#ffffff"
+            android:hint="@string/mobileNumber"
+            android:drawableStart="@drawable/phone"
+            app:errorEnabled = "true"
+            android:focusable="true"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            />
+
+        <EditText
+            android:id="@+id/editText_username"
+            android:layout_width="270dp"
+            android:layout_marginTop="15dp"
+            android:layout_height="65dp"
+            android:paddingBottom="10dp"
+            android:textColorHint="#ffffff"
+            android:textColor="#ffffff"
+            android:drawableLeft="@drawable/username"
+            android:backgroundTint="#ffffff"
+            android:hint="@string/username"
+            android:drawableStart="@drawable/username"
+            app:errorEnabled = "true"
+            android:focusable="true"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+        <EditText
+            android:id="@+id/editText_password"
+            android:layout_width="270dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="70dp"
+            android:layout_height="65dp"
+            android:paddingBottom="10dp"
+            android:textColorHint="#ffffff"
+            android:textColor="#ffffff"
+            android:drawableLeft="@drawable/password"
+            android:backgroundTint="#ffffff"
+            android:hint="@string/password"
+            android:drawableStart="@drawable/password"
+            app:errorEnabled = "true"
+            android:focusable="true"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:inputType="textPassword"
+            />
+
+        <ImageView
+            android:id="@+id/show_password_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="50dp"
+            android:alpha=".3"
+            android:onClick="showHidePassword"
+            android:padding="3dp"
+            android:src="@drawable/showpassword" />
+    </RelativeLayout>
+
+        <Button
+            android:id="@+id/button_register"
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button"
+            android:text="@string/register"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

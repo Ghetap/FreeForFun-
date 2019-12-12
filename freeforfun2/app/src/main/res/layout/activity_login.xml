@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +8,20 @@
     tools:context=".ui.login.LoginActivity"
     android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:id="@+id/coordinatorLayout"
     android:background="@drawable/gradient">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.login.LoginActivity"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/gradient"
+    >
 
     <ImageView
         android:layout_width="253dp"
@@ -31,47 +45,6 @@
         android:clickable="true"
         android:focusableInTouchMode="true"
         />
-
-
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:layout_width="270dp"-->
-<!--        android:layout_height="65dp"-->
-<!--        android:paddingBottom="10dp"-->
-<!--        android:textColorHint="#ffffff"-->
-<!--        app:errorEnabled="true"-->
-<!--        >-->
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:id="@+id/editText_username"-->
-<!--            android:textColor="#ffffff"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="@string/username"-->
-<!--            android:inputType="text"-->
-<!--            android:backgroundTint="#ffffff"-->
-<!--            android:drawablePadding="5dp"-->
-<!--            android:drawableLeft="@drawable/username"/>-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:layout_width="270dp"-->
-<!--        android:layout_height="65dp"-->
-<!--        android:paddingBottom="10dp"-->
-<!--        android:textColorHint="#ffffff"-->
-<!--        app:errorEnabled="true"-->
-<!--        app:passwordToggleEnabled="true"-->
-<!--        >-->
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:id="@+id/editText_password"-->
-<!--            android:textColor="#ffffff"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="@string/password"-->
-<!--            android:inputType="textPassword"-->
-<!--            android:backgroundTint="#ffffff"-->
-<!--            android:drawablePadding="5dp"-->
-<!--            android:drawableLeft="@drawable/password"-->
-<!--            android:drawableStart="@drawable/password" />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -156,3 +129,4 @@
         android:layout_width="250dp"
         android:layout_height="40dp"/>
 </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

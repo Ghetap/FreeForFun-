@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item android:title="@string/menu_application_options">
+            <menu>
+                <item
+                    android:id="@+id/nav_see_locals"
+                    android:icon="@drawable/local"
+                    android:title="@string/menu_locals" />
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single">
+    <item android:title="@string/menu_profile_settings">
+        <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/password_change"
+                android:title="@string/menu_profile_details" />
+            <item
+                android:id="@+id/nav_update"
+                android:icon="@drawable/update_profile"
+                android:title="@string/menu_update_profile" />
+            <item
+                android:id="@+id/nav_change_password"
+                android:icon="@drawable/profile_details"
+                android:title="@string/menu_change_password" />
+            <item
+                android:id="@+id/nav_change_language"
+                android:icon="@drawable/flag"
+                android:title="@string/menu_choose_language" />
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/delete_account"
+                android:title="@string/delete_account" />
+
+        </menu>
+    </item>
+    </group>
+
+</menu>

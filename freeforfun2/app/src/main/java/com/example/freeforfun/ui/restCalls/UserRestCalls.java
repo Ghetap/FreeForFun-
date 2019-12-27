@@ -341,8 +341,8 @@ public class UserRestCalls {
         }
         return null;
     }
-    public static StringBuilder filterLocals(String text){
-        String url =BASE_URL + Paths.GET_ALL_LOCALS + "/" + text;
+    public static  List<Local> filterLocals(String text){
+        String url =BASE_URL + Paths.FILTER_LOCALS + "/" + text;
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -357,8 +357,9 @@ public class UserRestCalls {
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setUseCaches(false);
-            connection.setRequestProperty("Content-length", "0");
-            connection.setRequestMethod("GET");
+            connection.setRequestProperty( "Content-Type", "application/json" );
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestMethod("POST");
             connection.connect();
 
             int responseCode = connection.getResponseCode();
@@ -369,7 +370,9 @@ public class UserRestCalls {
                 while ((readLine = in .readLine()) != null) {
                     response.append(readLine);
                 } in .close();
-                return response;
+                Type listType = new TypeToken<List<Local>>(){}.getType();
+                List<Local> locals = new Gson().fromJson(response.toString(), listType);
+                return locals;
             }
         } catch(IOException ex ){
             ex.printStackTrace();

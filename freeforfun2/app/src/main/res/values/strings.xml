@@ -61,5 +61,16 @@
     <string name="your_account_will_e_deleted_permanently_are_you_sure_you_want_to_continue">Your account will be deleted permanently. Are you sure you want to continue?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string-array name="filter_locals">
+        <item>Restaurant</item>
+        <item>Pub</item>
+        <item>Club</item>
+        <item>Terrace</item>
+        <item>Confectiontery</item>
+        <item>Fast-Food</item>
+        <item>Canteen</item>
+        <item>Pizzeria</item>
+        <item>Sky-bar</item>
+    </string-array>
 
 </resources>

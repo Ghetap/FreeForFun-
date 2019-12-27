@@ -15,10 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.freeforfun.R;
+import com.example.freeforfun.ui.model.Local;
+import com.example.freeforfun.ui.restCalls.UserRestCalls;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -26,10 +31,14 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
 
     private static final String TAG = "RecycleAdapter";
     List<String> localsList;
+    List<String> typeList;
     List<String> localsListAll;
+    List<String> copyTypeList;
 
-    public RecycleAdapter(List<String> localsList) {
+    public RecycleAdapter(List<String> localsList,List<String> typeList) {
+        this.typeList = typeList;
         this.localsList = localsList;
+        this.copyTypeList = new ArrayList<>();
         this.localsListAll = new ArrayList<>(localsList);
     }
 
@@ -45,9 +54,11 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.rowCountTextView.setText(String.valueOf(position));
+        //holder.rowCountTextView.setText(String.valueOf(position));
         holder.textViewtitle.setText(localsList.get(position));
-
+        if(position < typeList.size())
+            holder.typeTextView.setText(typeList.get(position).toLowerCase());
+        // holder.typeTextView.setText(typeList.get(position));
        // holder.imageView.setImage();
     }
 
@@ -66,14 +77,48 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<String> filteredLisr = new ArrayList<>();
+            List<String> types = new ArrayList<String>(Arrays.asList("pub","restaurant","club","terrace","confectiontery","fast food","sky bar","pizzeria"));
             if(constraint.toString().isEmpty()){
                 filteredLisr.addAll(localsListAll);
+                List<Local> locals = new ArrayList<>();
+                locals = UserRestCalls.getAllLocals();
+                copyTypeList.clear();
+                for(String local:filteredLisr){
+                    for(Local local1:locals){
+                        if(local.equals(local1.getName())){
+                            copyTypeList.add(local1.getType().toString());
+                        }
+                    }
+                }
+                typeList.clear();
+                typeList.addAll(copyTypeList);
             }
             else{
-                for(String local:localsListAll){
-                    if(local.toLowerCase().contains(constraint.toString().toLowerCase())){
-                        filteredLisr.add(local);
+                if(types.contains(constraint)){
+                    List<Local> locals = new ArrayList<>();
+                    locals = UserRestCalls.filterLocals(constraint.toString().toUpperCase());
+                    for(Local local:locals){
+                        filteredLisr.add(local.getName());
                     }
+                }
+                else{
+                    List<Local> locals = new ArrayList<>();
+                    locals = UserRestCalls.getAllLocals();
+                    for(String local:localsListAll){
+                            if(local.toLowerCase().contains(constraint.toString().toLowerCase())){
+                                filteredLisr.add(local);
+                            }
+                    }
+                    copyTypeList.clear();
+                    for(String local:filteredLisr){
+                        for(Local local1:locals){
+                            if(local.equals(local1.getName())){
+                                copyTypeList.add(local1.getType().toString());
+                            }
+                        }
+                    }
+                    typeList.clear();
+                    typeList.addAll(copyTypeList);
                 }
             }
             FilterResults filterResults = new FilterResults();
@@ -91,19 +136,20 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     };
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView imageView;
-        TextView textViewtitle, rowCountTextView;
+        TextView textViewtitle, rowCountTextView, typeTextView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             textViewtitle = itemView.findViewById(R.id.textViewTitle);
-            rowCountTextView = itemView.findViewById(R.id.rowCountTextView);
-
+            typeTextView = itemView.findViewById(R.id.typeTextView);
+            //typeTextView = itemView.findViewById(R.id.typetextView);
             itemView.setOnClickListener(this);
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     localsList.remove(getAdapterPosition());
+                    typeList.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
                     return true;
                 }

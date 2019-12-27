@@ -9,7 +9,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,12 +34,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LocalsFragment extends Fragment {
+public class LocalsFragment extends Fragment  {
 
     private LocalsViewModel slideshowViewModel;
     RecyclerView recyclerView;
     RecycleAdapter recycleAdapter;
     List<String> localsList;
+    List<String>localType;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         slideshowViewModel =
@@ -45,7 +50,8 @@ public class LocalsFragment extends Fragment {
         localsList = new ArrayList<>();
         recyclerView = root.findViewById(R.id.recycleView);
         localsList = createListOfNames();
-        recycleAdapter = new RecycleAdapter(localsList);
+        localType = createListOfType();
+        recycleAdapter = new RecycleAdapter(localsList,localType);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
@@ -55,7 +61,14 @@ public class LocalsFragment extends Fragment {
         return root;
     }
 
-
+    public List<String> createListOfType(){
+        List<String> listOfTypes = new ArrayList<>();
+        List<Local> locals = UserRestCalls.getAllLocals();
+        for(Local local:locals){
+            listOfTypes.add(local.getType().toString());
+        }
+        return listOfTypes;
+    }
     public List<String> createListOfNames(){
         List<String> listofNames = new ArrayList<>();
         List<Local> locals = UserRestCalls.getAllLocals();
@@ -86,4 +99,5 @@ public class LocalsFragment extends Fragment {
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
+
 }

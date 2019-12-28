@@ -142,8 +142,8 @@ public class RegisterActivity extends AppCompatActivity {
                             showSnackbar("Registration didn't go well. Try again!");
                         if(bitmap != null) {
                             try {
-                                UserRestCalls.upload(username.getText().toString(),bitmap);
-                            } catch (IOException e) {
+                                UserRestCalls.upload(username.getText().toString(), bitmap);
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -170,7 +170,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE && resultCode == RESULT_OK){
             imageUri = data.getData();
-            Bitmap bitmap = null;
+//            Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
                 profileImage.setImageBitmap(bitmap);
@@ -186,21 +186,6 @@ public class RegisterActivity extends AppCompatActivity {
         snackbar.show();
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK){
-//            imageUri = data.getData();
-////            Bitmap bitmap = null;
-//            try {
-//                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
-//                profileImage.setImageBitmap(bitmap);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
     public void showHidePassword(View view){
         if(view.getId()==R.id.show_password_btn){
             if(password.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
@@ -213,6 +198,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
+
     public boolean validateUsername(String usernameInput){
         if(!UserValidations.isNotEmpty(usernameInput)) {
             username.setError("Username is required!");

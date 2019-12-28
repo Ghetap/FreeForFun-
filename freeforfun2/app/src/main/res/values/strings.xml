@@ -72,5 +72,11 @@
         <item>Pizzeria</item>
         <item>Sky-bar</item>
     </string-array>
+    <string name="title_activity_local">LocalActivity</string>
+    <string name="description">Description</string>
+    <string name="location">Location</string>
+    <string name="mobile_number">Mobile number</string>
+    <string name="timetable">Timetable</string>
+    <string name="type">Type</string>
 
 </resources>

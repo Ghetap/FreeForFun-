@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.login.MainActivity;
-import com.example.freeforfun.ui.login.ui.changePassword.ChangePasswordViewModel;
-
 public class UserProfileFragment extends Fragment {
 
     private UserProfileViewModel userProfileViewModel;
@@ -31,6 +29,12 @@ public class UserProfileFragment extends Fragment {
 
         TextView role = root.findViewById(R.id.roleUser);
         role.setText("User");
+
+        TextView email = root.findViewById(R.id.emailUser);
+        email.setText(MainActivity.loggedUser.getEmail());
+
+        TextView username = root.findViewById(R.id.username);
+        username.setText(MainActivity.loggedUser.getUsername());
 
         return root;
     }

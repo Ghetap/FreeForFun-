@@ -1,5 +1,7 @@
 package com.example.freeforfun.ui.login.ui.seeLocals;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +14,15 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.freeforfun.R;
+import com.example.freeforfun.ui.login.LogoutActivity;
+import com.example.freeforfun.ui.login.MainActivity;
 import com.example.freeforfun.ui.model.Local;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
 
@@ -30,10 +38,12 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHolder> implements Filterable {
 
     private static final String TAG = "RecycleAdapter";
-    List<String> localsList;
-    List<String> typeList;
-    List<String> localsListAll;
-    List<String> copyTypeList;
+    private List<String> localsList;
+    private List<String> typeList;
+    private List<String> localsListAll;
+    private List<String> copyTypeList;
+    private List<Local> locals = UserRestCalls.getAllLocals();
+    public static Local clickedLocal;
 
     public RecycleAdapter(List<String> localsList,List<String> typeList) {
         this.typeList = typeList;
@@ -54,12 +64,9 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //holder.rowCountTextView.setText(String.valueOf(position));
         holder.textViewtitle.setText(localsList.get(position));
         if(position < typeList.size())
             holder.typeTextView.setText(typeList.get(position).toLowerCase());
-        // holder.typeTextView.setText(typeList.get(position));
-       // holder.imageView.setImage();
     }
 
     @Override
@@ -77,10 +84,10 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<String> filteredLisr = new ArrayList<>();
-            List<String> types = new ArrayList<String>(Arrays.asList("pub","restaurant","club","terrace","confectiontery","fast food","sky bar","pizzeria"));
+            List<String> types = new ArrayList<>(Arrays.asList("pub", "restaurant", "club", "terrace",
+                    "confectiontery", "fast food", "sky bar", "pizzeria"));
             if(constraint.toString().isEmpty()){
                 filteredLisr.addAll(localsListAll);
-                List<Local> locals = new ArrayList<>();
                 locals = UserRestCalls.getAllLocals();
                 copyTypeList.clear();
                 for(String local:filteredLisr){
@@ -136,13 +143,13 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     };
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView imageView;
-        TextView textViewtitle, rowCountTextView, typeTextView;
+        TextView textViewtitle, typeTextView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             textViewtitle = itemView.findViewById(R.id.textViewTitle);
             typeTextView = itemView.findViewById(R.id.typeTextView);
-            //typeTextView = itemView.findViewById(R.id.typetextView);
             itemView.setOnClickListener(this);
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -159,7 +166,16 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(),localsList.get(getAdapterPosition()),Toast.LENGTH_SHORT).show();
-        }
+            String localName = localsList.get(getAdapterPosition());
+            for(Local local: locals){
+                if(local.getName().equals(localName)) {
+                    clickedLocal = local;
+                    break;
+                }
+            }
+//            Toast.makeText(v.getContext(),localsList.get(getAdapterPosition()),Toast.LENGTH_SHORT).show();
+            Intent logoutIntent = new Intent(v.getContext(), LocalActivity.class);
+            v.getContext().startActivity(logoutIntent);
     }
+}
 }

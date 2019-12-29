@@ -1,35 +1,22 @@
 package com.example.freeforfun.ui.login.ui.seeLocals;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.model.Local;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
-
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,5 +86,4 @@ public class LocalsFragment extends Fragment  {
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
-
 }

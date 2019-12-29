@@ -5,14 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.login.MainActivity;
-import com.example.freeforfun.ui.login.ui.changePassword.ChangePasswordViewModel;
 
 public class UserProfileFragment extends Fragment {
 
@@ -31,6 +28,12 @@ public class UserProfileFragment extends Fragment {
 
         TextView role = root.findViewById(R.id.roleUser);
         role.setText("User");
+
+        TextView email = root.findViewById(R.id.emailUser);
+        email.setText(MainActivity.loggedUser.getEmail());
+
+        TextView username = root.findViewById(R.id.username);
+        username.setText(MainActivity.loggedUser.getUsername());
 
         return root;
     }

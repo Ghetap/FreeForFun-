@@ -1,36 +1,23 @@
 package com.example.freeforfun.ui.login;
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.inputValidations.UserValidations;
 import com.example.freeforfun.ui.model.User;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-
-import java.io.IOException;
-
-import static com.example.freeforfun.ui.login.MainActivity.loggedUser;
-
 
 public class LoginActivity extends AppCompatActivity {
 

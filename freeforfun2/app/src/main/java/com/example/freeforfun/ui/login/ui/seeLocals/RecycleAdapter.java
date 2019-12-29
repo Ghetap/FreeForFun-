@@ -102,11 +102,22 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
             }
             else{
                 if(types.contains(constraint)){
+
                     List<Local> locals = new ArrayList<>();
                     locals = UserRestCalls.filterLocals(constraint.toString().toUpperCase());
                     for(Local local:locals){
                         filteredLisr.add(local.getName());
                     }
+                    copyTypeList.clear();
+                    for(String local:filteredLisr){
+                        for(Local local1:locals){
+                            if(local.equals(local1.getName())){
+                                copyTypeList.add(local1.getType().toString());
+                            }
+                        }
+                    }
+                    typeList.clear();
+                    typeList.addAll(copyTypeList);
                 }
                 else{
                     List<Local> locals = new ArrayList<>();

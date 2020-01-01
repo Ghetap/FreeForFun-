@@ -1,8 +1,9 @@
 package com.example.freeforfun.ui.login.ui.seeLocals;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.util.Log;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,29 +12,21 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.freeforfun.R;
-import com.example.freeforfun.ui.login.LogoutActivity;
-import com.example.freeforfun.ui.login.MainActivity;
+import com.example.freeforfun.ui.model.EVoteType;
+import com.example.freeforfun.ui.model.FavouriteLocals;
 import com.example.freeforfun.ui.model.Local;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
+import com.example.freeforfun.ui.restCalls.VoteRestCalls;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHolder> implements Filterable {
 
@@ -42,16 +35,19 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     private List<String> typeList;
     private List<String> localsListAll;
     private List<String> copyTypeList;
+    private boolean once = false;
     private List<Local> locals = UserRestCalls.getAllLocals();
     public static Local clickedLocal;
-
-    public RecycleAdapter(List<String> localsList,List<String> typeList) {
+    private List<FavouriteLocals> favouriteLocals;
+    public RecycleAdapter(List<String> localsList,List<String> typeList, List<FavouriteLocals> favouriteLocals) {
         this.typeList = typeList;
         this.localsList = localsList;
         this.copyTypeList = new ArrayList<>();
         this.localsListAll = new ArrayList<>(localsList);
+        this.favouriteLocals = new ArrayList<>(favouriteLocals);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,9 +60,26 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textViewtitle.setText(localsList.get(position));
-        if(position < typeList.size())
+        int len = localsList.get(position).length();
+        char c = localsList.get(position).charAt(len-1);
+        if(c == 'U'){
+            String text = localsList.get(position).substring(0,len-1);
+            holder.textViewtitle.setText(text);
+            localsList.set(position,text);
+            holder.likeImage.setVisibility(View.INVISIBLE);
+            holder.likeImageVoted.setVisibility(View.VISIBLE);
+        }else if (c=='D'){
+            String text = localsList.get(position).substring(0,len-1);
+            holder.textViewtitle.setText(text);
+            localsList.set(position,text);
+
+            holder.dislikeImage.setVisibility(View.INVISIBLE);
+            holder.dislikeImageVoted.setVisibility(View.VISIBLE);
+        }else
+            holder.textViewtitle.setText(localsList.get(position));
+        if(position < typeList.size()){
             holder.typeTextView.setText(typeList.get(position).toLowerCase());
+        }
     }
 
     @Override
@@ -153,16 +166,19 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
         }
     };
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        ImageView imageView;
+        ImageView imageView,likeImage,dislikeImage,likeImageVoted,dislikeImageVoted;
         TextView textViewtitle, typeTextView;
-
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             textViewtitle = itemView.findViewById(R.id.textViewTitle);
             typeTextView = itemView.findViewById(R.id.typeTextView);
+            likeImage = itemView.findViewById(R.id.like);
+            dislikeImage = itemView.findViewById(R.id.dislike);
+            dislikeImageVoted = itemView.findViewById(R.id.dislike_voted);
+            likeImageVoted = itemView.findViewById(R.id.like_voted);
             itemView.setOnClickListener(this);
-
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -170,6 +186,60 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
                     typeList.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
                     return true;
+                }
+            });
+
+            likeImage.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                @Override
+                public void onClick(View v) {
+                    String localName = localsList.get(getAdapterPosition());
+                    for(Local local: locals){
+                        if(local.getName().equals(localName)) {
+                            clickedLocal = local;
+                            break;
+                        }
+                    }
+                    //Drawable highlight = v.getResources().getDrawable( R.drawable.circle);
+                    FavouriteLocals local = VoteRestCalls.getLocal(clickedLocal.getId());
+                    if(local ==null){
+                        VoteRestCalls.like(clickedLocal.getId());
+                        likeImage.setVisibility(View.INVISIBLE);
+                        likeImageVoted.setVisibility(View.VISIBLE);
+                    }else {
+                        VoteRestCalls.deleteVote(clickedLocal.getId());
+                        VoteRestCalls.like(clickedLocal.getId());
+                        dislikeImage.setVisibility(View.VISIBLE);
+                        dislikeImageVoted.setVisibility(View.INVISIBLE);
+                        likeImage.setVisibility(View.INVISIBLE);
+                        likeImageVoted.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+            dislikeImage.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                @Override
+                public void onClick(View v) {
+                    String localName = localsList.get(getAdapterPosition());
+                    for(Local local: locals){
+                        if(local.getName().equals(localName)) {
+                            clickedLocal = local;
+                            break;
+                        }
+                    }
+                    FavouriteLocals local = VoteRestCalls.getLocal(clickedLocal.getId());
+                    if(local == null ){
+                        VoteRestCalls.dislike(clickedLocal.getId());
+                        dislikeImage.setVisibility(View.INVISIBLE);
+                        dislikeImageVoted.setVisibility(View.VISIBLE);
+                    }else {
+                        VoteRestCalls.deleteVote(clickedLocal.getId());
+                        VoteRestCalls.dislike(clickedLocal.getId());
+                        likeImage.setVisibility(View.VISIBLE);
+                        likeImageVoted.setVisibility(View.INVISIBLE);
+                        dislikeImage.setVisibility(View.INVISIBLE);
+                        dislikeImageVoted.setVisibility(View.VISIBLE);
+                    }
                 }
             });
 

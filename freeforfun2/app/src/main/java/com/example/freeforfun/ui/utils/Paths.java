@@ -3,8 +3,8 @@ package com.example.freeforfun.ui.utils;
 public class Paths {
 
 //    public static final String BASE_URL = "http://192.168.100.48:8080/free_for_fun"; //Cluj
-    public static final String BASE_URL = "http://192.168.100.8:8080/free_for_fun"; //Sibiu
-//    public static final String BASE_URL = "http://10.0.2.2:8080/free_for_fun"; //emulator
+ //   public static final String BASE_URL = "http://192.168.100.8:8080/free_for_fun"; //Sibiu
+    public static final String BASE_URL = "http://10.0.2.2:8080/free_for_fun"; //emulator
 
     public static final String LOGIN = "/login";
     public static final String REGISTER = "/register";
@@ -15,4 +15,9 @@ public class Paths {
     public static final String UPDATE_PROFILE = "/update";
     public static final String GET_ALL_LOCALS = "/locals";
     public static final String FILTER_LOCALS = "/filter";
+    public static final String LIKE = "/upvote";
+    public static final String DISLIKE = "/downvote";
+    public static final String GET_LOCAL = "/getlocal";
+    public static final String DELETE_VOTE = "/getlocal";
+    public static final String GET_ALL_VOTED_LOCALS = "/votedlocals";
 }

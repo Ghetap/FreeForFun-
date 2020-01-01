@@ -56,7 +56,9 @@ public class PastReservationsFragment extends Fragment {
                     "-" +
                     reservation.getDateTimeReservation() +
                     "|" +
-                    reservation.getNumberOfPlaces();
+                    reservation.getNumberOfPlaces() +
+                    "|" +
+                    reservation.getId();
             reservationDetails.add(details);
         }
         return reservationDetails;

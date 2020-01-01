@@ -48,8 +48,14 @@
         tools:layout="@layout/reservations_fragment" />
 
     <fragment
-        android:id="@+id/nav_past_reservations"
-        android:name="com.example.freeforfun.ui.login.ui.seeHistoryReservations.PastReservationsFragment"
-        android:label="My past reservations"
-        tools:layout="@layout/past_reservations_fragment" />
+    android:id="@+id/nav_past_reservations"
+    android:name="com.example.freeforfun.ui.login.ui.seeHistoryReservations.PastReservationsFragment"
+    android:label="My past reservations"
+    tools:layout="@layout/past_reservations_fragment" />
+
+    <fragment
+        android:id="@+id/nav_favourite_locals"
+        android:name="com.example.freeforfun.ui.login.ui.favouriteLocals.FavouriteLocalsFragment"
+        android:label="My favourite locals"
+        tools:layout="@layout/favourite_locals_fragment" />
 </navigation>

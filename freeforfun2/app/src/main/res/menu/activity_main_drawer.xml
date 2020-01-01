@@ -11,6 +11,10 @@
                     android:icon="@drawable/local"
                     android:title="@string/menu_locals" />
                 <item
+                    android:id="@+id/nav_favourite_locals"
+                    android:icon="@drawable/favourite_locals"
+                    android:title="@string/favourite_locals" />
+                <item
                     android:id="@+id/nav_make_reservation"
                     android:icon="@drawable/make_reservation"
                     android:title="@string/make_reservation" />
@@ -41,10 +45,10 @@
                 android:id="@+id/nav_change_password"
                 android:icon="@drawable/profile_details"
                 android:title="@string/menu_change_password" />
-            <item
-                android:id="@+id/nav_change_language"
-                android:icon="@drawable/flag"
-                android:title="@string/menu_choose_language" />
+<!--            <item-->
+<!--                android:id="@+id/nav_change_language"-->
+<!--                android:icon="@drawable/flag"-->
+<!--                android:title="@string/menu_choose_language" />-->
 <!--            <item-->
 <!--                android:id="@+id/logout"-->
 <!--                android:icon="@drawable/delete_account"-->

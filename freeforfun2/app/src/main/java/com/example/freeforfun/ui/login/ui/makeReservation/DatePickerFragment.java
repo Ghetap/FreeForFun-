@@ -32,6 +32,6 @@ public class DatePickerFragment extends DialogFragment implements  DatePickerDia
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String currentDateString = DateFormat.getDateInstance(DateFormat.SHORT).format(calendar.getTime());
-        Reservation.dateText.setText(currentDateString);
+        ReservationFragment.dateText.setText(currentDateString);
     }
 }

@@ -33,6 +33,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         if(hourOfDay < 10) hour = "0" + hour;
         if(minute < 10) min = "0" + min;
         String selectedTime = hour + ":" + min;
-        Reservation.timeText.setText(selectedTime);
+        ReservationFragment.timeText.setText(selectedTime);
     }
 }

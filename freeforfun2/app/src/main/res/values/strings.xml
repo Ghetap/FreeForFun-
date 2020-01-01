@@ -79,7 +79,7 @@
     <string name="timetable">Timetable</string>
     <string name="type">Type</string>
     <string name="make_reservation">Make reservation</string>
-    <string name="see_reservations">See reservations</string>
+    <string name="see_reservations">See future reservations</string>
     <string name="number_persons">Nr. Persons</string>
     <string name="choose_reservation_type">Reservation type</string>
     <string name="choose_local">Choose local</string>
@@ -87,5 +87,6 @@
     <string name="choose_date">Choose date</string>
     <string name="date">Date</string>
     <string name="hour">Hour</string>
+    <string name="see_past_reservations">See past reservations</string>
 
 </resources>

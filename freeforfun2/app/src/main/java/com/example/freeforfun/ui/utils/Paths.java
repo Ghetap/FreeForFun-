@@ -20,5 +20,7 @@ public class Paths {
 
     public static final String RESERVATIONS = "/reservations";
     public static final String CREATE_RESERVATION = RESERVATIONS + "/create";
-    public static final String DELETE_RESERVATION = RESERVATIONS + "/delete/{id}";
+    public static final String DELETE_RESERVATION = RESERVATIONS + "/delete";
+    public static final String FILTER_FUTURE_RESERVATIONS_AFTER_USERS = RESERVATIONS + "future/user";
+    public static final String FILTER_PAST_RESERVATIONS_AFTER_USERS = RESERVATIONS + "past/user";
 }

@@ -37,13 +37,19 @@
 
     <fragment
         android:id="@+id/nav_make_reservation"
-        android:name="com.example.freeforfun.ui.login.ui.makeReservation.Reservation"
+        android:name="com.example.freeforfun.ui.login.ui.makeReservation.ReservationFragment"
         android:label="Make reservation"
         tools:layout="@layout/reservation_fragment" />
 
     <fragment
         android:id="@+id/nav_see_reservations"
-        android:name="com.example.freeforfun.ui.login.ui.seeReservations.Reservations"
-        android:label="See reservations"
+        android:name="com.example.freeforfun.ui.login.ui.seeReservations.ReservationsFragment"
+        android:label="My future reservations"
         tools:layout="@layout/reservations_fragment" />
+
+    <fragment
+        android:id="@+id/nav_past_reservations"
+        android:name="com.example.freeforfun.ui.login.ui.seeHistoryReservations.PastReservationsFragment"
+        android:label="My past reservations"
+        tools:layout="@layout/past_reservations_fragment" />
 </navigation>

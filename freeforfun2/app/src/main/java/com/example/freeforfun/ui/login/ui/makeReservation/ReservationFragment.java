@@ -41,7 +41,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class Reservation extends Fragment{
+public class ReservationFragment extends Fragment{
 
     private CoordinatorLayout coordinatorLayout;
     private ReservationViewModel mViewModel;
@@ -56,8 +56,8 @@ public class Reservation extends Fragment{
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Timestamp currentDate;
 
-    public static Reservation newInstance() {
-        return new Reservation();
+    public static ReservationFragment newInstance() {
+        return new ReservationFragment();
     }
 
     @Override

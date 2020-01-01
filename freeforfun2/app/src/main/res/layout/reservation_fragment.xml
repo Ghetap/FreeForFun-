@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.login.ui.makeReservation.Reservation"
+    tools:context=".ui.login.ui.makeReservation.ReservationFragment"
     android:background="@drawable/gradient"
     android:gravity="center_horizontal"
     android:orientation="vertical"

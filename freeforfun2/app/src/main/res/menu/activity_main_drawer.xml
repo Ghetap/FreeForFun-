@@ -18,6 +18,10 @@
                     android:id="@+id/nav_see_reservations"
                     android:icon="@drawable/see_reservations"
                     android:title="@string/see_reservations" />
+                <item
+                    android:id="@+id/nav_past_reservations"
+                    android:icon="@drawable/past"
+                    android:title="@string/see_past_reservations" />
             </menu>
         </item>
     </group>
@@ -41,10 +45,10 @@
                 android:id="@+id/nav_change_language"
                 android:icon="@drawable/flag"
                 android:title="@string/menu_choose_language" />
-            <item
-                android:id="@+id/logout"
-                android:icon="@drawable/delete_account"
-                android:title="@string/delete_account" />
+<!--            <item-->
+<!--                android:id="@+id/logout"-->
+<!--                android:icon="@drawable/delete_account"-->
+<!--                android:title="@string/delete_account" />-->
 
         </menu>
     </item>

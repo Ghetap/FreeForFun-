@@ -138,4 +138,41 @@ public class ReservationRestCalls {
         }
         return null;
     }
+
+    public static Reservation findReservationById(String id){
+        String url = BASE_URL + Paths.GET_RESERVATIONS_BY_ID + "/" + id;
+
+        if (android.os.Build.VERSION.SDK_INT >= 14)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        try {
+            URL urlForGetRequest = new URL(url);
+            String readLine;
+            HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
+            connection.setReadTimeout(15000);
+            connection.setConnectTimeout(15000);
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.connect();
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK){
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                while ((readLine = in .readLine()) != null) {
+                    response.append(readLine);
+                } in .close();
+                return new Gson().fromJson(response.toString(), Reservation.class);
+            }
+            if (responseCode == HttpURLConnection.HTTP_CREATED){
+                return null;
+            }
+        } catch(IOException ex ){
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

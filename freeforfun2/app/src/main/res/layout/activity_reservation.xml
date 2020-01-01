@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.ui.seeReservations.ReservationActivity"
+    android:background="@drawable/gradient">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.login.LoginActivity"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/gradient"
+        >
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarReservation"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimaryDark"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+            android:id="@+id/rellay"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/grad"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+            <RelativeLayout
+                android:id="@+id/imageUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp">
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageUser"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/whiteStart"
+                android:textSize="30sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:text="@string/local_name"
+            android:textColor="@color/whiteStart"
+            android:textSize="25sp" />
+        <TextView
+            android:id="@+id/localName"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/whiteStart"
+            >
+        </TextView>
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:text="@string/local_address"
+            android:paddingTop="8dp"
+            android:textSize="25sp"
+            android:textColor="@color/whiteStart"
+            />
+        <TextView
+            android:id="@+id/localAddress"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/whiteStart"
+            >
+        </TextView>
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_number"
+            android:paddingTop="8dp"
+            android:textSize="25sp"
+            android:textColor="@color/whiteStart"
+            />
+        <TextView
+            android:id="@+id/contactLocal"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/whiteStart"
+            >
+        </TextView>
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:text="@string/number_of_persons"
+            android:paddingTop="8dp"
+            android:textSize="25sp"
+            android:textColor="@color/whiteStart"
+            />
+        <TextView
+            android:id="@+id/persons"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textColor="@color/whiteStart"
+            >
+        </TextView>
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:text="@string/date_and_time"
+            android:paddingTop="8dp"
+            android:textSize="25sp"
+            android:textColor="@color/whiteStart"
+            />
+        <TextView
+            android:id="@+id/dateAndTime"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textColor="@color/whiteStart"
+            >
+        </TextView>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -16,13 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.login.ui.seeReservations.ReservationActivity"></activity>
         <activity
             android:name=".ui.login.ui.seeLocals.LocalActivity"
             android:label="Local"
-            android:theme="@style/AppTheme.CustomTheme"></activity>
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".ui.login.DeleteAccountActivity"
-            android:theme="@style/AppTheme.CustomTheme"></activity>
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".ui.login.LogoutActivity"
             android:theme="@style/AppTheme.CustomTheme" />

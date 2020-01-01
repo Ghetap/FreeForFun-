@@ -1,5 +1,6 @@
 package com.example.freeforfun.ui.login.ui.seeHistoryReservations;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.freeforfun.R;
+import com.example.freeforfun.ui.login.ui.seeReservations.RecycleAdapterReservations;
+import com.example.freeforfun.ui.login.ui.seeReservations.ReservationActivity;
+import com.example.freeforfun.ui.restCalls.ReservationRestCalls;
 
 import java.util.List;
 
@@ -35,6 +39,7 @@ public class RecycleAdapterPastReservations extends RecyclerView.Adapter<Recycle
     public void onBindViewHolder(@NonNull RecycleAdapterPastReservations.ViewHolder holder, int position) {
         String[] reservationDetails = reservations.get(position).split("\\|");
         int size = reservationDetails[0].length();
+        RecycleAdapterReservations.selectedId = reservationDetails[2];
         holder.textViewTitle.setText(reservationDetails[0].substring(0, size-6)
                 + reservationDetails[0].substring(size-3, size));
         holder.typeTextView.setText("Number of places: " + reservationDetails[1]);
@@ -70,6 +75,10 @@ public class RecycleAdapterPastReservations extends RecyclerView.Adapter<Recycle
 
         @Override
         public void onClick(View v) {
+            RecycleAdapterReservations.clickedReservation = ReservationRestCalls
+                    .findReservationById(RecycleAdapterReservations.selectedId);
+            Intent logoutIntent = new Intent(v.getContext(), ReservationActivity.class);
+            v.getContext().startActivity(logoutIntent);
         }
     }
 }

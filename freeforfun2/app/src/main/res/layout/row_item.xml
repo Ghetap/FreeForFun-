@@ -41,16 +41,66 @@
 
     <TextView
         android:id="@+id/typeTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="190dp"
+        android:layout_height="16dp"
         android:text="TextView"
-        android:textColor="@color/circleBorder"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/circleBorder"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/like"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textViewTitle"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
+    <ImageView
+        android:id="@+id/like"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/dislike"
+        android:visibility="visible"
+        app:srcCompat="@drawable/like_purple"/>
+
+    <ImageView
+        android:id="@+id/dislike"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"
+        app:srcCompat="@drawable/dislike_purple" />
+
+    <ImageView
+        android:id="@+id/like_voted"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/dislike"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/like_grey"/>
+
+    <ImageView
+        android:id="@+id/dislike_voted"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/dislike_grey" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

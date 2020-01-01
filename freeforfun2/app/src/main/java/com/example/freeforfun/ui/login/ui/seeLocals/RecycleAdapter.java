@@ -116,7 +116,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
             else{
                 if(types.contains(constraint)){
 
-                    List<Local> locals = new ArrayList<>();
+                    List<Local> locals;
                     locals = UserRestCalls.filterLocals(constraint.toString().toUpperCase());
                     for(Local local:locals){
                         filteredLisr.add(local.getName());
@@ -133,7 +133,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
                     typeList.addAll(copyTypeList);
                 }
                 else{
-                    List<Local> locals = new ArrayList<>();
+                    List<Local> locals;
                     locals = UserRestCalls.getAllLocals();
                     for(String local:localsListAll){
                             if(local.toLowerCase().contains(constraint.toString().toLowerCase())){
@@ -172,7 +172,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
-            textViewtitle = itemView.findViewById(R.id.textViewTitle);
+            textViewTitle = itemView.findViewById(R.id.textViewTitle);
             typeTextView = itemView.findViewById(R.id.typeTextView);
             likeImage = itemView.findViewById(R.id.like);
             dislikeImage = itemView.findViewById(R.id.dislike);
@@ -254,7 +254,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
                     break;
                 }
             }
-//            Toast.makeText(v.getContext(),localsList.get(getAdapterPosition()),Toast.LENGTH_SHORT).show();
             Intent logoutIntent = new Intent(v.getContext(), LocalActivity.class);
             v.getContext().startActivity(logoutIntent);
     }

@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.freeforfun.R;
+import com.example.freeforfun.ui.login.ui.makeReservation.DatePickerFragment;
 import com.example.freeforfun.ui.model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -10,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -55,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_profile, R.id.nav_update, R.id.nav_see_locals,
-                 R.id.nav_change_language, R.id.nav_change_password)
+                 R.id.nav_change_language, R.id.nav_change_password, R.id.nav_make_reservation,
+                R.id.nav_see_reservations)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

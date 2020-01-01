@@ -12,9 +12,17 @@ public class Paths {
     public static final String CHANGE_PASSWORD = "/changePassword";
     public static final String DELETE_ACCOUNT = "/deleteAccount";
     public static final String UPLOAD = "/upload";
+
+
     public static final String UPDATE_PROFILE = "/update";
     public static final String GET_ALL_LOCALS = "/locals";
     public static final String FILTER_LOCALS = "/filter";
+
+    public static final String RESERVATIONS = "/reservations";
+    public static final String CREATE_RESERVATION = RESERVATIONS + "/create";
+    public static final String DELETE_RESERVATION = RESERVATIONS + "/delete";
+    public static final String FILTER_FUTURE_RESERVATIONS_AFTER_USERS = RESERVATIONS + "future/user";
+    public static final String FILTER_PAST_RESERVATIONS_AFTER_USERS = RESERVATIONS + "past/user";
     public static final String LIKE = "/upvote";
     public static final String DISLIKE = "/downvote";
     public static final String GET_LOCAL = "/getlocal";

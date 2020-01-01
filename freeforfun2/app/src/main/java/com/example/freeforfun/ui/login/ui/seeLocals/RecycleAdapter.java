@@ -172,7 +172,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
-            textViewTitle = itemView.findViewById(R.id.textViewTitle);
+            textViewtitle = itemView.findViewById(R.id.textViewTitle);
             typeTextView = itemView.findViewById(R.id.typeTextView);
             likeImage = itemView.findViewById(R.id.like);
             dislikeImage = itemView.findViewById(R.id.dislike);

@@ -10,6 +10,14 @@
                     android:id="@+id/nav_see_locals"
                     android:icon="@drawable/local"
                     android:title="@string/menu_locals" />
+                <item
+                    android:id="@+id/nav_make_reservation"
+                    android:icon="@drawable/make_reservation"
+                    android:title="@string/make_reservation" />
+                <item
+                    android:id="@+id/nav_see_reservations"
+                    android:icon="@drawable/see_reservations"
+                    android:title="@string/see_reservations" />
             </menu>
         </item>
     </group>

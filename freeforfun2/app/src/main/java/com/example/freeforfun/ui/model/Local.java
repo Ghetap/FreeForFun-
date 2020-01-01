@@ -5,23 +5,14 @@ public class Local {
 
 	private Long id;
 	private String name;
-
 	private String location;
-
 	private String mobileNumber;
-
 	private String timetable;
-
 	private Float rating;
-
 	private String description;
-
 	private Boolean smokingRestriction;
-
 	private Boolean petRestriction;
-
 	private Boolean wifi;
-
 	private User owner;
 
 

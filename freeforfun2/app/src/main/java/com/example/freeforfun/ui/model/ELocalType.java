@@ -1,6 +1,5 @@
 package com.example.freeforfun.ui.model;
 
-
 import java.util.HashMap;
 import java.util.Map;
 

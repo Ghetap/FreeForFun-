@@ -88,5 +88,6 @@
     <string name="date">Date</string>
     <string name="hour">Hour</string>
     <string name="see_past_reservations">See past reservations</string>
+    <string name="favourite_locals">Favourite locals</string>
 
 </resources>

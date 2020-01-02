@@ -100,31 +100,31 @@
         >
     </TextView>
 
-    <TextView
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:paddingLeft="20dp"
-        android:text="@string/username"
-        android:textSize="20dp"
-        android:textColor="@color/whiteStart"
-        />
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:paddingLeft="40dp"
-        android:layout_marginTop="530dp"
-        android:textSize="20dp"
-        android:textColor="@color/whiteStart"
-        >
-    </TextView>
+<!--    <TextView-->
+<!--        android:layout_width="350dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="500dp"-->
+<!--        android:paddingLeft="20dp"-->
+<!--        android:text="@string/username"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textColor="@color/whiteStart"-->
+<!--        />-->
+<!--    <TextView-->
+<!--        android:id="@+id/username"-->
+<!--        android:layout_width="350dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingLeft="40dp"-->
+<!--        android:layout_marginTop="530dp"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textColor="@color/whiteStart"-->
+<!--        >-->
+<!--    </TextView>-->
 
     <Button
         android:id="@+id/button_changePass"
         android:layout_width="245dp"
         android:layout_height="50dp"
-        android:layout_marginTop="580dp"
+        android:layout_marginTop="510dp"
         android:background="@drawable/button"
         android:backgroundTint="@color/gradStart"
         android:onClick="openDeleteActivity"

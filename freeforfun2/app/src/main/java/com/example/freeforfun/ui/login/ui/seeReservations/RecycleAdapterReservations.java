@@ -89,6 +89,7 @@ public class RecycleAdapterReservations extends RecyclerView.Adapter<RecycleAdap
                             String[] reservationDetails = reservations.get(getAdapterPosition()).split("\\|");
                             String id = reservationDetails[2];
                             ReservationRestCalls.deleteReservationById(id);
+                            reservations.remove(getAdapterPosition());
                             notifyItemRemoved(getAdapterPosition());
                         }});
 

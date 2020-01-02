@@ -32,8 +32,8 @@ public class UserProfileFragment extends Fragment {
         TextView email = root.findViewById(R.id.emailUser);
         email.setText(MainActivity.loggedUser.getEmail());
 
-        TextView username = root.findViewById(R.id.username);
-        username.setText(MainActivity.loggedUser.getUsername());
+//        TextView username = root.findViewById(R.id.username);
+//        username.setText(MainActivity.loggedUser.getUsername());
 
         return root;
     }

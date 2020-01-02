@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.login.ui.seeLocals.LocalActivity;
+import com.example.freeforfun.ui.login.ui.seeLocals.RecycleAdapter;
 import com.example.freeforfun.ui.model.EVoteType;
 import com.example.freeforfun.ui.model.FavouriteLocals;
 import com.example.freeforfun.ui.model.Local;
@@ -52,7 +53,16 @@ public class RecycleAdapterFavouriteLocals extends RecyclerView.Adapter<RecycleA
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textViewtitle.setText(localsList.get(position));
+        String[] localDetails = localsList.get(position).split(",");
+        holder.textViewtitle.setText(localDetails[0]);
+        if(localDetails[1].equals("F")){
+            holder.freePlaces.setVisibility(View.VISIBLE);
+            holder.notFreePlaces.setVisibility(View.INVISIBLE);
+        }
+        else{
+            holder.freePlaces.setVisibility(View.INVISIBLE);
+            holder.notFreePlaces.setVisibility(View.VISIBLE);
+        }
         holder.typeVoteTextView.setText(listOfVotes.get(position).toString());
     }
 
@@ -62,7 +72,7 @@ public class RecycleAdapterFavouriteLocals extends RecyclerView.Adapter<RecycleA
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        ImageView imageView;
+        ImageView imageView, freePlaces, notFreePlaces;
         TextView textViewtitle, typeVoteTextView;
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         public ViewHolder(@NonNull View itemView) {
@@ -70,6 +80,8 @@ public class RecycleAdapterFavouriteLocals extends RecyclerView.Adapter<RecycleA
             imageView = itemView.findViewById(R.id.imageView);
             textViewtitle = itemView.findViewById(R.id.textViewTitle);
             typeVoteTextView = itemView.findViewById(R.id.typeVoteTextView);
+            freePlaces = itemView.findViewById(R.id.availableImageFavourite);
+            notFreePlaces = itemView.findViewById(R.id.notAvailableImageFavourite);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -84,10 +96,11 @@ public class RecycleAdapterFavouriteLocals extends RecyclerView.Adapter<RecycleA
 
         @Override
         public void onClick(View v) {
-            String localName = localsList.get(getAdapterPosition());
+            String[] localDetails = localsList.get(getAdapterPosition()).split(",");
+            String localName = localDetails[0];
             for(Local local: locals){
                 if(local.getName().equals(localName)) {
-                    clickedLocal = local;
+                    RecycleAdapter.clickedLocal = local;
                     break;
                 }
             }

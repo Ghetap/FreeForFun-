@@ -6,6 +6,7 @@
     android:background="@drawable/gradient"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:id="@+id/coordinatorLayoutReservations"
     >
 
     <androidx.recyclerview.widget.RecyclerView

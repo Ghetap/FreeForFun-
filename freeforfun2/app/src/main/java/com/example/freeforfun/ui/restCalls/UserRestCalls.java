@@ -235,15 +235,6 @@ public class UserRestCalls {
         return null;
     }
 
-    public static void upload(String username, Bitmap bitmap) throws IOException {
-        String url = BASE_URL + Paths.UPLOAD + "/" + username;
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] pixels = stream.toByteArray();
-        bitmap.recycle();
-
-    }
-
     public static List<Local> getAllLocals(){
         String url =BASE_URL + Paths.GET_ALL_LOCALS;
         if (android.os.Build.VERSION.SDK_INT > 9)

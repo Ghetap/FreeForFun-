@@ -1,6 +1,11 @@
 package com.example.freeforfun.ui.login.ui.seeReservations;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.model.Reservation;
@@ -21,7 +27,7 @@ public class RecycleAdapterReservations extends RecyclerView.Adapter<RecycleAdap
     public static Reservation clickedReservation;
     public static String selectedId;
 
-    public RecycleAdapterReservations(List<String> reservations) {
+    RecycleAdapterReservations(List<String> reservations) {
         this.reservations = reservations;
     }
 
@@ -30,8 +36,7 @@ public class RecycleAdapterReservations extends RecyclerView.Adapter<RecycleAdap
     public RecycleAdapterReservations.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.row_item_reservation,parent,false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -39,9 +44,11 @@ public class RecycleAdapterReservations extends RecyclerView.Adapter<RecycleAdap
         String[] reservationDetails = reservations.get(position).split("\\|");
         int size = reservationDetails[0].length();
         selectedId = reservationDetails[2];
-        holder.textViewTitle.setText(reservationDetails[0].substring(0, size-6)
-                                + reservationDetails[0].substring(size-3, size));
-        holder.typeTextView.setText("Number of places: " + reservationDetails[1]);
+        String titleItem = reservationDetails[0].substring(0, size-6)
+                + reservationDetails[0].substring(size-3, size);
+        holder.textViewTitle.setText(titleItem);
+        String detailsItem = "Number of places: " + reservationDetails[1];
+        holder.typeTextView.setText(detailsItem);
     }
 
     @Override
@@ -50,12 +57,13 @@ public class RecycleAdapterReservations extends RecyclerView.Adapter<RecycleAdap
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView imageView;
+        ImageView imageView, deleteImage;
         TextView textViewTitle, typeTextView;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageViewReservation);
+            deleteImage = itemView.findViewById(R.id.imageViewDelete);
             textViewTitle = itemView.findViewById(R.id.textViewTitleReservation);
             typeTextView = itemView.findViewById(R.id.typeTextViewReservation);
             itemView.setOnClickListener(this);
@@ -68,6 +76,27 @@ public class RecycleAdapterReservations extends RecyclerView.Adapter<RecycleAdap
                 }
             });
 
+            deleteImage.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    AlertDialog alertDialog = new AlertDialog.Builder(context).create(); //Read Update
+                    alertDialog.setTitle("Cancel reservation");
+                    alertDialog.setMessage("Are you sure you want to cancel the selected reservation?");
+                    alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int which) {
+                            String[] reservationDetails = reservations.get(getAdapterPosition()).split("\\|");
+                            String id = reservationDetails[2];
+                            ReservationRestCalls.deleteReservationById(id);
+                            notifyItemRemoved(getAdapterPosition());
+                        }});
+
+                    alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int which) {
+                        }});
+                    alertDialog.show();
+            }});
         }
 
         @Override

@@ -102,5 +102,27 @@
         android:visibility="invisible"
         app:srcCompat="@drawable/dislike_grey" />
 
+    <ImageView
+        android:id="@+id/availableImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/available" />
 
+    <ImageView
+        android:id="@+id/notAvailableImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/unavailable" />
 </androidx.constraintlayout.widget.ConstraintLayout>

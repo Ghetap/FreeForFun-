@@ -20,6 +20,7 @@ import com.example.freeforfun.R;
 import com.example.freeforfun.ui.model.EVoteType;
 import com.example.freeforfun.ui.model.FavouriteLocals;
 import com.example.freeforfun.ui.model.Local;
+import com.example.freeforfun.ui.restCalls.ReservationRestCalls;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
 import com.example.freeforfun.ui.restCalls.VoteRestCalls;
 
@@ -39,6 +40,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     private List<Local> locals = UserRestCalls.getAllLocals();
     public static Local clickedLocal;
     private List<FavouriteLocals> favouriteLocals;
+
     public RecycleAdapter(List<String> localsList,List<String> typeList, List<FavouriteLocals> favouriteLocals) {
         this.typeList = typeList;
         this.localsList = localsList;
@@ -60,8 +62,10 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int len = localsList.get(position).length();
-        char c = localsList.get(position).charAt(len-1);
+        String[] localDetails = localsList.get(position).split(",");
+        int len = localDetails[0].length();
+        char c = localDetails[0].charAt(len-1);
+        String freePlaces = localDetails[1];
         if(c == 'U'){
             String text = localsList.get(position).substring(0,len-1);
             holder.textViewtitle.setText(text);
@@ -79,6 +83,14 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
             holder.textViewtitle.setText(localsList.get(position));
         if(position < typeList.size()){
             holder.typeTextView.setText(typeList.get(position).toLowerCase());
+        }
+        if(freePlaces.equals("F")){
+            holder.freePlaces.setVisibility(View.VISIBLE);
+            holder.notFreePlaces.setVisibility(View.INVISIBLE);
+        }
+        else{
+            holder.freePlaces.setVisibility(View.INVISIBLE);
+            holder.notFreePlaces.setVisibility(View.VISIBLE);
         }
     }
 
@@ -166,7 +178,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
         }
     };
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        ImageView imageView,likeImage,dislikeImage,likeImageVoted,dislikeImageVoted;
+        ImageView imageView,likeImage,dislikeImage,likeImageVoted,dislikeImageVoted,
+                freePlaces, notFreePlaces;
         TextView textViewtitle, typeTextView;
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         public ViewHolder(@NonNull View itemView) {
@@ -178,6 +191,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
             dislikeImage = itemView.findViewById(R.id.dislike);
             dislikeImageVoted = itemView.findViewById(R.id.dislike_voted);
             likeImageVoted = itemView.findViewById(R.id.like_voted);
+            freePlaces = itemView.findViewById(R.id.availableImage);
+            notFreePlaces = itemView.findViewById(R.id.notAvailableImage);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

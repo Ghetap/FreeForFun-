@@ -21,6 +21,7 @@ import com.example.freeforfun.ui.model.EVoteType;
 import com.example.freeforfun.ui.model.FavouriteLocalCompositeKey;
 import com.example.freeforfun.ui.model.FavouriteLocals;
 import com.example.freeforfun.ui.model.Local;
+import com.example.freeforfun.ui.restCalls.ReservationRestCalls;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
 import com.example.freeforfun.ui.restCalls.VoteRestCalls;
 
@@ -62,10 +63,18 @@ public class FavouriteLocalsFragment extends Fragment {
         List<String> listofNames = new ArrayList<>();
         List<Local> locals = UserRestCalls.getAllLocals();
         for(Local local:locals){
-                EVoteType vote = getVoteType(new FavouriteLocalCompositeKey(local.getId(),loggedUser.getId()));
+            List<Local> freeLocals = ReservationRestCalls.getFreeLocalsNow(local.getId());
+            EVoteType vote = getVoteType(new FavouriteLocalCompositeKey(local.getId(),loggedUser.getId()));
                 if( vote != null && vote.equals(EVoteType.UPVOTE)){
                     listOfVotes.add("Liked");
-                    listofNames.add(local.getName());
+                    String localName = local.getName();
+                    if(!freeLocals.isEmpty()){
+                        localName = localName + ",F";
+                    }
+                    else{
+                        localName = localName + ",N";
+                    }
+                    listofNames.add(localName);
                 }
         }
         return listofNames;

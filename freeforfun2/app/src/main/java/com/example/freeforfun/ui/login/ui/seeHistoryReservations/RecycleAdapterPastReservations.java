@@ -75,6 +75,8 @@ public class RecycleAdapterPastReservations extends RecyclerView.Adapter<Recycle
 
         @Override
         public void onClick(View v) {
+            String[] reservationDetails = reservations.get(getAdapterPosition()).split("\\|");
+            RecycleAdapterReservations.selectedId = reservationDetails[2];
             RecycleAdapterReservations.clickedReservation = ReservationRestCalls
                     .findReservationById(RecycleAdapterReservations.selectedId);
             Intent logoutIntent = new Intent(v.getContext(), ReservationActivity.class);

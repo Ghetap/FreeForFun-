@@ -7,10 +7,12 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.FileUtils;
 import android.provider.MediaStore;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,8 @@ import android.widget.ImageView;
 
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.inputValidations.UserValidations;
+import com.example.freeforfun.ui.restCalls.NetworkClient;
+import com.example.freeforfun.ui.restCalls.UploadApis;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
 import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONObject;
@@ -25,8 +29,18 @@ import org.json.JSONObject;
 import org.json.JSONException;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -136,17 +150,12 @@ public class RegisterActivity extends AppCompatActivity {
                     else
                     {
                         String message = UserRestCalls.register(jsonUser);
+                        uploadImage();
                         if(message != null)
                             showSnackbar(message);
                         else
                             showSnackbar("Registration didn't go well. Try again!");
-                        if(bitmap != null) {
-                            try {
-                                UserRestCalls.upload(username.getText().toString(), bitmap);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -165,6 +174,38 @@ public class RegisterActivity extends AppCompatActivity {
       });
     }
 
+    public void uploadImage(){
+        if(imageUri != null) {
+            try {
+               String path= imageUri.getPath();
+                File file = new File(path);
+                MultipartBody.Part part =  null;
+                RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"),file);
+
+                part = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
+
+                RequestBody requestUser = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(username.getText()));
+
+                Retrofit retrofit = NetworkClient.getRetrofit();
+                UploadApis uploadApis = retrofit.create(UploadApis.class);
+                Call call = uploadApis.uploadImage(part,requestUser);
+
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onResponse(Call call, Response response) {
+                        showSnackbar(response.toString());
+                    }
+
+                    @Override
+                    public void onFailure(Call call, Throwable t) {
+
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -241,27 +282,19 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
     public String getPath(Uri uri) {
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        String [] proj={MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, proj,  null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
-        String document_id = cursor.getString(0);
-        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        String path = cursor.getString(column_index);
         cursor.close();
-
-        cursor = getContentResolver().query(
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
-        cursor.moveToFirst();
-        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-        cursor.close();
-
         return path;
     }
 
-    private String imageToString(Bitmap bitmap){
+    private String imageToString(){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
         byte[] imgBytes = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(imgBytes,Base64.DEFAULT);
     }
-
 }

@@ -41,7 +41,6 @@ public class LocalsFragment extends Fragment  {
     List<String> localsList;
     List<String>localType;
     List<FavouriteLocals> favouriteLocals;
-    ImageView likeImage,dislikeImage;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -89,14 +88,6 @@ public class LocalsFragment extends Fragment  {
             }
 
         return listofNames;
-    }
-
-    boolean contains(FavouriteLocalCompositeKey id){
-        for(FavouriteLocals fav:this.favouriteLocals){
-            if(fav.getId().getLocalId().equals(id.getLocalId()) && fav.getId().getUserId().equals(id.getUserId()))
-                return true;
-        }
-        return false;
     }
 
     EVoteType getVoteType(FavouriteLocalCompositeKey id){

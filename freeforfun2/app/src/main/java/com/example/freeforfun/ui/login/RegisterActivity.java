@@ -1,18 +1,24 @@
 package com.example.freeforfun.ui.login;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.loader.content.CursorLoader;
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.FileUtils;
 import android.provider.MediaStore;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +29,7 @@ import com.example.freeforfun.ui.inputValidations.UserValidations;
 import com.example.freeforfun.ui.restCalls.NetworkClient;
 import com.example.freeforfun.ui.restCalls.UploadApis;
 import com.example.freeforfun.ui.restCalls.UserRestCalls;
+import com.example.freeforfun.ui.utils.FileUtils;
 import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONObject;
 
@@ -41,6 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -50,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
     Uri imageUri;
     Bitmap bitmap;
     private static final int PICK_IMAGE = 1;
+    private static final int PERMISSION_REQUEST = 100;
     private Button registerButton;
     private EditText username;
     private EditText password;
@@ -63,6 +72,12 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        if(ContextCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(RegisterActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST);
+        }
+
         profileImage = findViewById(R.id.profile_image);
         username = findViewById(R.id.editText_username);
         password = findViewById(R.id.editText_password);
@@ -74,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
         registerButton = findViewById(R.id.button_register);
         registerButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
                 JSONObject jsonUser = new JSONObject();
@@ -149,6 +165,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                     else
                     {
+
                         String message = UserRestCalls.register(jsonUser);
                         uploadImage();
                         if(message != null)
@@ -177,27 +194,29 @@ public class RegisterActivity extends AppCompatActivity {
     public void uploadImage(){
         if(imageUri != null) {
             try {
-               String path= imageUri.getPath();
-                File file = new File(path);
-                MultipartBody.Part part =  null;
-                RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"),file);
+                File file = FileUtils.from(getApplicationContext(),imageUri);
+                RequestBody userPart = RequestBody.create(MultipartBody.FORM, username.getText().toString());
+                RequestBody filePart = RequestBody.create(MediaType.parse(getContentResolver().getType(imageUri)),
+                        file);
 
-                part = MultipartBody.Part.createFormData("file",file.getName(),requestFile);
-
-                RequestBody requestUser = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(username.getText()));
-
+                MultipartBody.Part part =  MultipartBody.Part.createFormData("file",file.getName(),filePart);
+                //create Retrofit instance
+//                Retrofit.Builder builder = new Retrofit.Builder().
+//                        baseUrl("http://192.168.1.106:8080/free_for_fun/").
+//                        addConverterFactory(GsonConverterFactory.create());
+//                Retrofit retrofit = builder.build();
                 Retrofit retrofit = NetworkClient.getRetrofit();
                 UploadApis uploadApis = retrofit.create(UploadApis.class);
-                Call call = uploadApis.uploadImage(part,requestUser);
-
-                call.enqueue(new Callback() {
+                Call<ResponseBody> call = uploadApis.uploadImage(userPart,part);
+                call.enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call call, Response response) {
-                        showSnackbar(response.toString());
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if(response.isSuccessful()){
+                            showSnackbar(response.toString());
+                        }
                     }
-
                     @Override
-                    public void onFailure(Call call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                     }
                 });
@@ -220,6 +239,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
+
 
     public void showSnackbar(String messageFromServer){
         Snackbar snackbar = Snackbar
@@ -282,13 +302,18 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
     public String getPath(Uri uri) {
-        String [] proj={MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(uri, proj,  null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String path = cursor.getString(column_index);
-        cursor.close();
-        return path;
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = getApplicationContext().getContentResolver().query(uri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 
     private String imageToString(){

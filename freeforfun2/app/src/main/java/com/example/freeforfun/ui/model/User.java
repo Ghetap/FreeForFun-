@@ -1,6 +1,7 @@
 package com.example.freeforfun.ui.model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 public class User implements Serializable {
     private Long id;
@@ -11,6 +12,15 @@ public class User implements Serializable {
     private String mobileNumber;
     private String username;
     private ERoleType role;
+    private Blob picture;
+
+    public Blob getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Blob picture) {
+        this.picture = picture;
+    }
 
     public Long getId() {
         return id;

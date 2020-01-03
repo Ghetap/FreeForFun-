@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import com.example.freeforfun.R;
 import com.example.freeforfun.ui.model.Local;
+import com.example.freeforfun.ui.model.LocalTable;
+import com.example.freeforfun.ui.restCalls.ReservationRestCalls;
+
+import java.util.List;
 
 public class LocalActivity extends AppCompatActivity {
 
@@ -50,6 +54,22 @@ public class LocalActivity extends AppCompatActivity {
         timetable.setText(currentLocal.getTimetable());
         TextView type = findViewById(R.id.typeLocal);
         type.setText(currentLocal.getType().toString().toLowerCase());
+        TextView freeTablesView = findViewById(R.id.freeTables);
+        List<LocalTable> freeTables = ReservationRestCalls.getFreeTablesForLocalNow(currentLocal.getId());
+        StringBuilder tables = new StringBuilder();
+        if(freeTables.isEmpty()){
+            String noFreePlace = "No free places now";
+            freeTablesView.setText(noFreePlace);
+        }
+        else{
+            for(LocalTable table: freeTables){
+                tables.append("- a free table with ");
+                tables.append(table.getNumberOfPlaces());
+                tables.append(" places");
+                tables.append("\n");
+            }
+            freeTablesView.setText(tables);
+        }
 
         pets = findViewById(R.id.petsId);
         noPets = findViewById(R.id.noPetsId);

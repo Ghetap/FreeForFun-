@@ -212,7 +212,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if(response.isSuccessful()){
-                            showSnackbar(response.toString());
+                            showSnackbar("successfully uploaded");
                         }
                     }
                     @Override

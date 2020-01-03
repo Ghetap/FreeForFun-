@@ -94,5 +94,6 @@
     <string name="contact_number">Contact number</string>
     <string name="number_of_persons">Number of persons</string>
     <string name="date_and_time">Date and time</string>
+    <string name="free_tables_now">Free tables now</string>
 
 </resources>

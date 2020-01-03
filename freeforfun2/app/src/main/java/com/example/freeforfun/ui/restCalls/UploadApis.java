@@ -15,6 +15,6 @@ public interface UploadApis {
 
     @Multipart
     @POST("upload")
-    Call<ResponseBody> uploadImage(@Part MultipartBody.Part part, @Part("username") RequestBody username);
+    Call<ResponseBody> uploadImage(@Part("username") RequestBody username,@Part MultipartBody.Part part);
 
 }
